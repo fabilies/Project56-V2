@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Project56_new.Models.Itms>
+
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@*<@Html.DisplayFor(modelItem => item.description)*@
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+
+
+        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 sale-item">
+            <span class="sale">Sale!</span>
+            <div class="sale-img-outer">
+                <img class="sale-img-inner" src="http://www.zonnebrillen.com/media/catalog/product/cache/1/small_image/295x177/9df78eab33525d08d6e5fb8d27136e95/0/r/0rb4165__601_8g.jpg">
+            </div>
+            <div class="sale-specs">
+                <div class="sale-title"><h3>@Html.DisplayFor(modelItem => item.description)</h3></div>
+                <div class="sale-price"><h3>&euro; @Html.DisplayFor(modelItem => item.price)-</h3></div>
+            </div>
+            <p>
+                De Original Wayfarer zonnebrillen van Ray-Ban hebben de best herkenbare stijl uit de geschiedenis van zonnebrillen.
+            </p>
+            <p><a class="btn btn-primary" href="#">Lees meer &raquo;</a></p>
+            <p><a class="btn btn-success" href="#">Bestel &raquo;</a></p>
+        </div>
+
+
+    }
+</div>
+    

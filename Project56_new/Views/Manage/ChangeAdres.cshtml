@@ -1,0 +1,35 @@
+﻿@model ChangeAdresViewModel
+@{
+    ViewData["Title"] = "Mijn adres gegevens";
+    ViewData.AddActivePage(ManageNavPages.ChangeAdres);
+}
+
+<h4>@ViewData["Title"]</h4>
+@Html.Partial("_StatusMessage", Model.StatusMessage)
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="a_adres"></label>
+                <input asp-for="a_adres" class="form-control" />
+                <span asp-validation-for="a_adres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="a_zipcode"></label>
+                <input asp-for="a_zipcode" class="form-control" />
+                <span asp-validation-for="a_zipcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="a_city"></label>
+                <input asp-for="a_city" class="form-control" />
+                <span asp-validation-for="a_city" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-default">Gegevens bijwerken</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
