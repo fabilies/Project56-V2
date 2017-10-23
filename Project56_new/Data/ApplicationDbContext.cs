@@ -25,5 +25,6 @@ namespace Project56_new.Data
 
         public DbSet<Project56_new.Models.Itms> Itms { get; set; }
         public DbSet<Project56_new.Models.ApplicationUser> UsersDb { get; set; }
+        public DbSet<Project56_new.Models.ItmCategories> ItmCategories { get; set; }
     }
 }
