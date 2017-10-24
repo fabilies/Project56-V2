@@ -91,7 +91,7 @@ namespace Project56_new.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,description,long_description,category_id,price,photo_url,l_show,dt_created,dt_modified")] Itms itms)
+        public async Task<IActionResult> Edit(int id, [Bind("id,description,long_description,category_id,price,photo_url, itm_quantity,l_show,dt_created,dt_modified")] Itms itms)
         {
             if (id != itms.id)
             {

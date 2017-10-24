@@ -13,6 +13,7 @@ namespace Project56_new.Models
         public float price {get;set;}
         public string photo_url {get;set;}
         public int l_show {get;set;}
+        public int itm_quantity { get; set; }
         public DateTime dt_created {get;set;}
         public DateTime dt_modified {get;set;}
         }  

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Product bewerken</h2>
 
 <h4>Itms</h4>
 <hr />
@@ -39,6 +39,11 @@
                 <span asp-validation-for="photo_url" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="itm_quantity" class="control-label"></label>
+                <input asp-for="itm_quantity" class="form-control" />
+                <span asp-validation-for="itm_quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="l_show" class="control-label"></label>
                 <input asp-for="l_show" class="form-control" />
                 <span asp-validation-for="l_show" class="text-danger"></span>
@@ -54,15 +59,17 @@
                 <span asp-validation-for="dt_modified" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-success" />
+                <div style="float:right;">
+                    @Html.ActionLink("Terug", "Index", "Itms", null, new { @class = "btn btn-default btn-large" })
+                </div>
             </div>
         </form>
+
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
