@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Project56_new.Data;
 using Project56_new.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Project56_new.Controllers
 {
@@ -20,11 +21,12 @@ namespace Project56_new.Controllers
             _context = context;
         }
         [HttpGet]
-        public  IActionResult ShoppingCart()
+        public  IActionResult ShoppingCarat()
         {
             return View();
         }
         // GET: Itms
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Itms.ToListAsync());
@@ -67,6 +69,7 @@ namespace Project56_new.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(itms);
         }
 
