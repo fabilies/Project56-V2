@@ -36,7 +36,14 @@
 </div>
 <div>
     @Html.ActionLink("Terug", "Index", "Home", null, new { @class = "btn btn-default btn-large" })
-    @Html.ActionLink("Toevoegen aan winkelmand", "ShoppingCart", "Itms", null, new { @class = "btn btn-success btn-large" })
+    @Html.ActionLink("Toevoegen aan winkelmand",
+                      "SaveItmInShoppingCart",
+                      "ShoppingCart",
+                      routeValues: new
+                      {
+                          itm_id = Model.id
+                      },
+                        htmlAttributes :   new { @class = "btn btn-success btn-large" })
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

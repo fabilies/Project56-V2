@@ -11,9 +11,10 @@ using System;
 namespace Project56_new.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171030160339_OrderInterface modified")]
+    partial class OrderInterfacemodified
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -266,7 +267,7 @@ namespace Project56_new.Data.Migrations
 
                     b.Property<int>("ord_id");
 
-                    b.Property<int>("qty");
+                    b.Property<float>("qty");
 
                     b.HasKey("id");
 
@@ -290,7 +291,7 @@ namespace Project56_new.Data.Migrations
 
                     b.Property<int>("ordstatus_id");
 
-                    b.Property<string>("user_ad");
+                    b.Property<int>("user_ad");
 
                     b.HasKey("id");
 

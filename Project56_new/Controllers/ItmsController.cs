@@ -23,11 +23,6 @@ namespace Project56_new.Controllers
         {
             _context = context;
         }
-        [HttpGet]
-        public  IActionResult ShoppingCarat()
-        {
-            return View();
-        }
         // GET: Itms
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()

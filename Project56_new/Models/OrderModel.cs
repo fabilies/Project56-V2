@@ -15,7 +15,7 @@ namespace Project56_new.Models
     public  class OrdMains {
         public int id {get;set;}  
         
-        public int user_id {get;set;}
+        public string user_ad {get;set;}
         public int ordstatus_id {get;set;}
         public DateTime dt_order {get;set;}
         public DateTime dt_delivery{get;set;}
@@ -35,7 +35,7 @@ namespace Project56_new.Models
         public int id {get;set;}           
         public int itm_id {get;set;}
         public int ord_id {get;set;}
-        public float qty {get;set;}
+        public int qty {get;set;}
         public int l_show {get;set;}
         public DateTime dt_created {get;set;}
         public DateTime dt_modified {get;set;}   

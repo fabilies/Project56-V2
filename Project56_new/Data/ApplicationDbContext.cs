@@ -26,5 +26,10 @@ namespace Project56_new.Data
         public DbSet<Project56_new.Models.Itms> Itms { get; set; }
         public DbSet<Project56_new.Models.ApplicationUser> UsersDb { get; set; }
         public DbSet<Project56_new.Models.ItmCategories> ItmCategories { get; set; }
+        public DbSet<Project56_new.Models.OrdHistory> OrdHistory { get; set; }
+        public DbSet<Project56_new.Models.OrdLines> OrdLines { get; set; }
+        public DbSet<Project56_new.Models.OrdMains> OrdMains { get; set; }
+
+        public DbSet<Project56_new.Models.OrdStatus> OrdStatus { get; set; }
     }
 }
