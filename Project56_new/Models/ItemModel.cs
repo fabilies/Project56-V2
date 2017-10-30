@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+
 namespace Project56_new.Models
 
 {
@@ -16,7 +19,10 @@ namespace Project56_new.Models
         public int itm_quantity { get; set; }
         public DateTime dt_created {get;set;}
         public DateTime dt_modified {get;set;}
-        }  
+
+        public string ImageName { get; set; }
+
+    }
     public  class ItmCategories {
         public int id {get;set;}
         public string description {get;set;}      

@@ -22,3 +22,15 @@ C:\Users\fabia\OneDrive\Documenten\GitHub\Project56-V2\Project56-V2\Project56_ne
 C:\Users\fabia\OneDrive\Documenten\GitHub\Project56-V2\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.AssemblyInfo.cs
 C:\Users\fabia\OneDrive\Documenten\GitHub\Project56-V2\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.dll
 C:\Users\fabia\OneDrive\Documenten\GitHub\Project56-V2\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.pdb
+C:\Users\Gebruiker\Documents\GitHub\Project56-V2\Project56_new\bin\Debug\netcoreapp2.0\Project56_new.deps.json
+C:\Users\Gebruiker\Documents\GitHub\Project56-V2\Project56_new\bin\Debug\netcoreapp2.0\Project56_new.runtimeconfig.json
+C:\Users\Gebruiker\Documents\GitHub\Project56-V2\Project56_new\bin\Debug\netcoreapp2.0\Project56_new.runtimeconfig.dev.json
+C:\Users\Gebruiker\Documents\GitHub\Project56-V2\Project56_new\bin\Debug\netcoreapp2.0\Project56_new.dll
+C:\Users\Gebruiker\Documents\GitHub\Project56-V2\Project56_new\bin\Debug\netcoreapp2.0\Project56_new.pdb
+C:\Users\Gebruiker\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.csprojResolveAssemblyReference.cache
+C:\Users\Gebruiker\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.csproj.CoreCompileInputs.cache
+C:\Users\Gebruiker\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\Gebruiker\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.AssemblyInfoInputs.cache
+C:\Users\Gebruiker\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.AssemblyInfo.cs
+C:\Users\Gebruiker\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.dll
+C:\Users\Gebruiker\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.pdb

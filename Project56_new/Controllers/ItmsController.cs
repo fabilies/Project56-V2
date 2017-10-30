@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Project56_new.Data;
 using Project56_new.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace Project56_new.Controllers
 {
@@ -61,17 +64,56 @@ namespace Project56_new.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,description,long_description,category_id,price,photo_url,l_show,dt_created,dt_modified")] Itms itms)
+        public async Task<IActionResult> Create([Bind("id,description,long_description,category_id,price,photo_url,l_show,dt_created,dt_modified")] Itms itms )
         {
             if (ModelState.IsValid)
             {
+                var files = HttpContext.Request.Form.Files;
+                foreach (var Image in files)
+                {
+                    if (Image != null && Image.Length > 0)
+                    {
+
+                        var file = Image;
+                        var uploads = Path.Combine("wwwroot\\images\\products\\");
+
+                        if (file.Length > 0)
+                        {
+                            Random rnd = new Random();
+                            int num = rnd.Next(0000000, 9999999);
+                            
+                            var fileName = ContentDispositionHeaderValue.Parse
+                                (file.ContentDisposition).FileName.Trim('"');
+
+
+                            string Key = num + fileName;
+                            
+                            System.Console.WriteLine(fileName);
+                            using (var fileStream = new FileStream(Path.Combine(uploads, Key), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                                itms.photo_url = Key;
+
+                            }
+
+
+                        }
+                    }
+                }
                 _context.Add(itms);
                 await _context.SaveChangesAsync();
+           
                 return RedirectToAction(nameof(Index));
-            }
 
+            }
+            else
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+            }
             return View(itms);
         }
+
+ 
 
         // GET: Itms/Edit/5
         public async Task<IActionResult> Edit(int? id)

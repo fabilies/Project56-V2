@@ -12,6 +12,8 @@ using Project56_new.Data;
 using Project56_new.Models;
 using Project56_new.Services;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Project56_new
 {
@@ -36,6 +38,10 @@ namespace Project56_new
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddSingleton<IFileProvider>(
+                new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
 
             services.AddMvc();
             services.AddAuthorization(options =>
