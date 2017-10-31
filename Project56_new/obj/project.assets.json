@@ -13116,7 +13116,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Gebruiker\\.nuget\\packages\\": {},
+    "C:\\Users\\fabia\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -13125,17 +13125,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Gebruiker\\Documents\\GitHub\\Project56-V2\\Project56_new\\Project56_new.csproj",
+      "projectUniqueName": "C:\\Users\\fabia\\OneDrive\\Documenten\\GitHub\\Project56-V2\\Project56-V2\\Project56_new\\Project56_new.csproj",
       "projectName": "Project56_new",
-      "projectPath": "C:\\Users\\Gebruiker\\Documents\\GitHub\\Project56-V2\\Project56_new\\Project56_new.csproj",
-      "packagesPath": "C:\\Users\\Gebruiker\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Gebruiker\\Documents\\GitHub\\Project56-V2\\Project56_new\\obj\\",
+      "projectPath": "C:\\Users\\fabia\\OneDrive\\Documenten\\GitHub\\Project56-V2\\Project56-V2\\Project56_new\\Project56_new.csproj",
+      "packagesPath": "C:\\Users\\fabia\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\fabia\\OneDrive\\Documenten\\GitHub\\Project56-V2\\Project56-V2\\Project56_new\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Gebruiker\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\fabia\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

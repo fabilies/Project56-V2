@@ -10,6 +10,7 @@ namespace Project56_new.Models
 {
     public  class Itms {
         public int id {get;set;}
+        [Display(Name = "Beschrijving")]
         public string description {get;set;}       
         public string long_description {get;set;}
         public int category_id {get;set;}
