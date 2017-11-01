@@ -9,19 +9,26 @@ namespace Project56_new.Models
 
 {
     public  class Itms {
-        public int id {get;set;}
-        [Display(Name = "Beschrijving")]
-        public string description {get;set;}       
-        public string long_description {get;set;}
-        public int category_id {get;set;}
-        public float price {get;set;}
-        public string photo_url {get;set;}
-        public int l_show {get;set;}
+        [Display(Name = "ID")]
+        public int id { get; set; }
+        [Display(Name = "Product naam")]
+        public string description { get; set; }
+        [Display(Name = "Product omschrijving")]
+        public string long_description { get; set; }
+        [Display(Name = "Categorie")]
+        public int category_id { get; set; }
+        [Display(Name = "Prijs")]
+        public float price { get; set; }
+        [Display(Name = "Afbeelding")]
+        public string photo_url { get; set; }
+        [Display(Name = "Product status")]
+        public int l_show { get; set; }
+        [Display(Name = "Voorraad")]
         public int itm_quantity { get; set; }
-        public DateTime dt_created {get;set;}
-        public DateTime dt_modified {get;set;}
-
-        public string ImageName { get; set; }
+        [Display(Name = "Aanmaakdatum")]
+        public DateTime dt_created { get; set; }
+        [Display(Name = "Wijzigingsdatum")]
+        public DateTime dt_modified { get; set; }
 
     }
     public  class ItmCategories {

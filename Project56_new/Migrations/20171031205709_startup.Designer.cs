@@ -11,8 +11,8 @@ using System;
 namespace Project56_new.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171031182130_test")]
-    partial class test
+    [Migration("20171031205709_startup")]
+    partial class startup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -208,8 +208,6 @@ namespace Project56_new.Migrations
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ImageName");
 
                     b.Property<int>("category_id");
 

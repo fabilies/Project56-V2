@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Project56_new.Migrations
 {
-    public partial class test : Migration
+    public partial class startup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -73,7 +73,6 @@ namespace Project56_new.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     category_id = table.Column<int>(type: "int", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     dt_created = table.Column<DateTime>(type: "datetime2", nullable: false),

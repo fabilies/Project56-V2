@@ -1,11 +1,8 @@
 ﻿@model IEnumerable<Project56_new.Models.Itms>
 
-
-
 @{
     ViewData["Title"] = "Home Page";
 }
-
 
 @*<@Html.DisplayFor(modelItem => item.description)*@
 
@@ -13,21 +10,40 @@
     @foreach (var item in Model)
     {
 
-
         <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 sale-item">
             <span class="sale">Sale!</span>
-            <div class="sale-img-outer">
-                <img class="sale-img-inner" src="~/images/products/@Html.DisplayFor(modelItem => item.photo_url)">
-            </div>
-            <div class="sale-specs">
-                <div class="sale-title"><h3>@Html.DisplayFor(modelItem => item.description)</h3></div>
-                <div class="sale-price"><h3>&euro; @Html.DisplayFor(modelItem => item.price)-</h3></div>
-            </div>
+                <div class="sale-img-outer">
+                    @if (item.itm_quantity == 0)
+                    {
+                        <img class="sale-img-inner" src="~/images/products/out-of-stock.png">
+                    }
+                    else
+                    {
+                      <img class="sale-img-inner" src="~/images/products/@Html.DisplayFor(modelItem => item.photo_url)">
+                    } 
+                </div>
+                <div class="sale-specs">
+                    <div class="sale-title"><h3>@Html.DisplayFor(modelItem => item.description)</h3></div>
+                    <div class="sale-price"><h3>&euro; @Html.DisplayFor(modelItem => item.price)-</h3></div>
+                </div>
             <p>
+                <!-- Hier item.long_description-->
                 De Original Wayfarer zonnebrillen van Ray-Ban hebben de best herkenbare stijl uit de geschiedenis van zonnebrillen.
             </p>
             <p><a class="btn btn-primary" href="/ProductDetails/View/@Html.DisplayFor(modelItem => item.id)">Lees meer &raquo;</a></p>
-            <p><a class="btn btn-success" href="#">Voeg toe aan winkelmand &raquo;</a></p>
+           @if (item.itm_quantity != 0)
+           {
+            <p>@Html.ActionLink("Toevoegen aan winkelmand", "SaveItmInShoppingCart", "ShoppingCart",
+                      routeValues: new
+                      {
+                          itm_id = item.id
+                      },
+                        htmlAttributes: new { @class = "btn btn-success btn-large" })</p>
+           }
+           else
+           {
+            <p><a class="btn btn-info" href="home/contact">Contact &raquo;</a></p>
+           }
         </div>
 
 

@@ -208,8 +208,6 @@ namespace Project56_new.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ImageName");
-
                     b.Property<int>("category_id");
 
                     b.Property<string>("description");

@@ -21,6 +21,7 @@ namespace Project56_new.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            // hier haalt die alles op en stopt die in de view 
             return View(await _context.Itms.ToListAsync());
         }
 
