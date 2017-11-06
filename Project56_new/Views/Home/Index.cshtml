@@ -7,7 +7,8 @@
 @*<@Html.DisplayFor(modelItem => item.description)*@
 
 <div id="page-wrapper" class="container-fluid">
-    <form>
+    @* TODO : Need to fix passing more parameters and build a proper query.*@
+    <form asp-action="Index" method="post">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -15,18 +16,27 @@
                         <h2>Filter</h2>
                         <div class="form-group">
                             <label>Product naam</label>
-                            <input class="form-control" placeholder="test" id="#">
+                            <input class="form-control" name="search" placeholder="Zoekproducten." value="@ViewData["currentFilter"]">
                         </div>
                         <div class="form-group">
                             <label>Categorie</label>
-                            <input class="form-control" placeholder="ewa" id="#">
+                            <select class="form-control" name="glass_type">
+                                <option>Alle Brillen</option>
+                                <option>Sterkte Brillen</option>
+                                <option>Zonne Brillen</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label>Prijs</label>
-                            <input class="form-control" type="number" placeholder="ewa" id="#">
+                            <label>Maximale Prijs</label>
+                            <input class="form-control" name="maxPrice" type="number" max="999" min="1">
                         </div>
-                        <button type="submit" class="btn btn-default">Zoeken</button>
-                        <button type="reset" class="btn btn-default">Herstel filter</button>
+                        <div class="form-group">
+                            <label><input class="form-control" name="onsale" type="checkbox"> Uitverkoop </label>
+                        </div>
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary">Zoeken</button>
+                            <button type="reset" class="btn btn-primary">Herstel filter</button>
+                        </div>
                     </div>
                     <!-- Hieronder starten met producten asah-->
                     <div class="col-xs-10">
