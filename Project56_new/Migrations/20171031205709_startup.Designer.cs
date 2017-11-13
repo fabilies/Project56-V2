@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Project56_new.Data;
 using System;
 
-namespace Project56_new.Data.Migrations
+namespace Project56_new.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171030130041_Test")]
-    partial class Test
+    [Migration("20171031205709_startup")]
+    partial class startup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -209,8 +209,6 @@ namespace Project56_new.Data.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ImageName");
-
                     b.Property<int>("category_id");
 
                     b.Property<string>("description");
@@ -232,6 +230,88 @@ namespace Project56_new.Data.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Itms");
+                });
+
+            modelBuilder.Entity("Project56_new.Models.OrdHistory", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("description");
+
+                    b.Property<DateTime>("dt_created");
+
+                    b.Property<DateTime>("dt_modified");
+
+                    b.Property<int>("l_show");
+
+                    b.HasKey("id");
+
+                    b.ToTable("OrdHistory");
+                });
+
+            modelBuilder.Entity("Project56_new.Models.OrdLines", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("dt_created");
+
+                    b.Property<DateTime>("dt_modified");
+
+                    b.Property<int>("itm_id");
+
+                    b.Property<int>("l_show");
+
+                    b.Property<int>("ord_id");
+
+                    b.Property<int>("qty");
+
+                    b.HasKey("id");
+
+                    b.ToTable("OrdLines");
+                });
+
+            modelBuilder.Entity("Project56_new.Models.OrdMains", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("dt_created");
+
+                    b.Property<DateTime>("dt_delivery");
+
+                    b.Property<DateTime>("dt_modified");
+
+                    b.Property<DateTime>("dt_order");
+
+                    b.Property<int>("l_show");
+
+                    b.Property<int>("ordstatus_id");
+
+                    b.Property<string>("user_ad");
+
+                    b.HasKey("id");
+
+                    b.ToTable("OrdMains");
+                });
+
+            modelBuilder.Entity("Project56_new.Models.OrdStatus", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("description");
+
+                    b.Property<DateTime>("dt_created");
+
+                    b.Property<DateTime>("dt_modified");
+
+                    b.Property<int>("l_show");
+
+                    b.HasKey("id");
+
+                    b.ToTable("OrdStatus");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

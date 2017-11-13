@@ -19,9 +19,45 @@ namespace Project56_new.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
+
+        public string tf(string _input)
         {
-            return View(await _context.Itms.ToListAsync());
+            if (_input == "on" || _input == "true")
+                return "true";
+            else
+                return "false";
+        }
+
+        // TODO : Modify it so it works out of the box. Might need to make a new
+        // function as a whole out of it, but if it works here, hey atleast it works.
+        public async Task<IActionResult> Index(string search, string onsale, string maxPrice)
+        {
+            // Incoming information from the form.
+            ViewData["CurrentFilter"] = search;
+            ViewData["isOnSale"] = tf(onsale);
+            ViewData["maxPrice"] = maxPrice;
+
+            // Retrieve the products from the database.
+            var products = from p in _context.Itms select p;
+
+            if (HttpContext.Request.Method == "POST")
+            {
+                Debug.WriteLine("Stuff works");
+                //TODO : Create a querybuilder.
+                if (ViewData["CurrentFilter"] != null)
+                {
+                    Debug.WriteLine("Ayy not null.");
+                    products = products.Where(p => p.description.Contains(ViewData["CurrentFilter"].ToString()));
+                }
+
+            }
+
+            // Checking if the debug works out.
+            Debug.Write("Houston, we have gotten the following info.");
+            Debug.Write($"S : {ViewData["CurrentFilter"]} Sale:{ViewData["isOnSale"]} Max : {ViewData["maxPrice"]} ");
+
+
+            return View(await products.ToListAsync());
         }
 
         public IActionResult About()

@@ -18,6 +18,29 @@ namespace Project56_new.Controllers
         {
             _context = context;
         }
+         // 1 : klikken op verwijderen
+         // 2 : form method naar deze method sturen met parameter ordline_id {razor}
+
+        [HttpGet]
+        // deze functie
+        public async Task<ActionResult> DeleteItmFromShoppingCart(int ordline_id)
+        {
+            var result = (from ordlines in _context.OrdLines
+                          where ordlines.id == ordline_id
+                          select ordlines).FirstOrDefault();
+            if (result != null)
+            {
+                _context.OrdLines.Remove(result);
+               await _context.SaveChangesAsync();
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Artikel kan niet verwijderd worden!";
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -36,6 +59,7 @@ namespace Project56_new.Controllers
                                         qty = ordlines.qty,
                                         ordline_id = ordlines.id,
                                         subtotal = ordlines.qty *itms.price,
+                                        photo_url = itms.photo_url
                                      };
 
 

@@ -4,30 +4,35 @@
     ViewData["Title"] = "View";
 }
 <h2>Product Details</h2>
-<h4>Geselecteerde product: @Html.DisplayFor(model => model.description)</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <table>
            <tr>
-               <td><h4>Product naam: </h4> </td>
+               <td><h4>@Html.DisplayNameFor(model => model.description)</h4> </td>
                <td>@Html.DisplayFor(model => model.description)</td>
            </tr>
             <tr>
-                <td><h4>Omschrijving: </h4> </td>
+                <td><h4>@Html.DisplayNameFor(model => model.long_description)</h4> </td>
                 <td>@Html.DisplayFor(model => model.long_description)</td>
             </tr>
             <tr>
-                <td><h4>Prijs: </h4> </td>
+                <td><h4>@Html.DisplayNameFor(model => model.price)</h4> </td>
                 <td style="color:darkgreen;">&euro; @Html.DisplayFor(model => model.price),-</td>
             </tr>
             <tr>
-                <td><h4>Aantal op voorraad: </h4> </td>
-                <td style="color:darkgreen;">@Html.DisplayFor(model => model.itm_quantity)</td>
+                <td><h4>@Html.DisplayNameFor(model => model.itm_quantity)</h4> </td>
+                @if (Model.itm_quantity != 0)
+                {
+                    <td style="color:darkgreen;">@Html.DisplayFor(model => model.itm_quantity)</td>
+                }
+                else
+                {
+                    <td style="color:red;">@Html.DisplayFor(model => model.itm_quantity)</td>
+                }
             </tr>
             <tr>
-                <td><img src="http://www.zonnebrillen.com/media/catalog/product/cache/1/small_image/295x177/9df78eab33525d08d6e5fb8d27136e95/0/r/0rb4165__601_8g.jpg" alt="test"></td>
-                <!--<td><img src="@Html.DisplayFor(model => model.photo_url)"></td> -->
+                <td><img src="~/images/products/@Html.DisplayFor(model => model.photo_url)" alt="@Html.DisplayFor(model => model.description)"></td>
             </tr>
 
         </table>
@@ -36,14 +41,17 @@
 </div>
 <div>
     @Html.ActionLink("Terug", "Index", "Home", null, new { @class = "btn btn-default btn-large" })
-    @Html.ActionLink("Toevoegen aan winkelmand",
-                      "SaveItmInShoppingCart",
-                      "ShoppingCart",
+
+    @if (Model.itm_quantity != 0)
+    {
+        @Html.ActionLink("Toevoegen aan winkelmand","SaveItmInShoppingCart","ShoppingCart",
                       routeValues: new
                       {
                           itm_id = Model.id
                       },
-                        htmlAttributes :   new { @class = "btn btn-success btn-large" })
+                        htmlAttributes: new { @class = "btn btn-success btn-large" })
+    }
+
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
