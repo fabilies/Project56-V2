@@ -1,2 +1,10 @@
 
 *.lock
+.vs/Project56_new/v15/Server/sqlite3/storage.ide-shm
+*.ide-shm
+*.ide-wal
+*.ide
+*.ide-shm
+*.ide-wal
+.vs/Project56_new/v15/sqlite3/storage.ide
+*.ide-wal
