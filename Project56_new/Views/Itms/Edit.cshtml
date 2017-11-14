@@ -25,7 +25,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="category_id" class="control-label"></label>
-                <input asp-for="category_id" class="form-control" />
+                <select name="category_id" class="form-control">
+                    <option value="0" selected>Sale</option>
+                    <option value="1">Zonnebrillen</option>
+                    <option value="2">Sterktebrillen</option>
+                </select>
                 <span asp-validation-for="category_id" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,23 +39,22 @@
             </div>
             <div class="form-group">
                 <label asp-for="photo_url" class="control-label"></label>
-                <input asp-for="photo_url" class="form-control" />
+                <input id="test" type="file" name="pic" accept="image/*" />
+                <label for="test">@Html.DisplayFor(model => Model.photo_url)</label>
                 <span asp-validation-for="photo_url" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="itm_quantity" class="control-label"></label>
-                <input asp-for="itm_quantity" class="form-control" />
+                <input asp-for="itm_quantity" class="form-control" min="0"/>
                 <span asp-validation-for="itm_quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="l_show" class="control-label"></label>
-                <input asp-for="l_show" class="form-control" />
+                <select name="l_show" class="form-control">
+                    <option value="1" selected>Actief</option>
+                    <option value="0">Inactief</option>
+                </select>
                 <span asp-validation-for="l_show" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="dt_created" class="control-label"></label>
-                <input asp-for="dt_created" class="form-control" />
-                <span asp-validation-for="dt_created" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="dt_modified" class="control-label"></label>

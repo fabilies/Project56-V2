@@ -14,6 +14,7 @@ using System.Net.Http.Headers;
 
 namespace Project56_new.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ItmsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,7 +25,6 @@ namespace Project56_new.Controllers
             _context = context;
         }
         // GET: Itms
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Itms.ToListAsync());

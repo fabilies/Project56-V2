@@ -33,7 +33,12 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="ShoppingCart" asp-action="Index">Winkelwagen</a></li>
-                    
+                    @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                    {
+                        <li><a asp-area="" asp-controller="Itms" asp-action="Index">Beheer</a></li>
+
+                    }
+
 
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
