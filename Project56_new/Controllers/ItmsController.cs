@@ -96,7 +96,7 @@ namespace Project56_new.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,description,long_description,category_id,price,photo_url,l_show,dt_created,dt_modified , itm_quantity")] Itms itms )
+        public async Task<IActionResult> Create([Bind("id,description,long_description,category_id,IsSales,price,photo_url,l_show,dt_created,dt_modified , itm_quantity")] Itms itms )
         {
             if (ModelState.IsValid)
             {
@@ -138,7 +138,7 @@ namespace Project56_new.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,description,long_description,category_id,price,photo_url,l_show,dt_created,dt_modified , itm_quantity")] Itms itms)
+        public async Task<IActionResult> Edit(int id, [Bind("id,description,long_description,category_id,IsSales,price,photo_url,l_show,dt_created,dt_modified , itm_quantity")] Itms itms)
         {
             if (id != itms.id)
             {

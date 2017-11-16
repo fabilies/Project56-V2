@@ -22,14 +22,17 @@
                     @Html.DisplayNameFor(model => model.category_id)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.IsSales)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.price)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.photo_url)
                 </th>
-            <th>
-                @Html.DisplayNameFor(model => model.itm_quantity)
-            </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.itm_quantity)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.l_show)
                 </th>
@@ -53,6 +56,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.category_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSales)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.price)

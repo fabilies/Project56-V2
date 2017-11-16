@@ -17,6 +17,8 @@ namespace Project56_new.Models
         public string long_description { get; set; }
         [Display(Name = "Categorie")]
         public int category_id { get; set; }
+        [Display(Name = "Actie")]
+        public int IsSales { get; set; }
         [Display(Name = "Prijs")]
         public float price { get; set; }
         [Display(Name = "Afbeelding")]
