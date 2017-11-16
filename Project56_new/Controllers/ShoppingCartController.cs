@@ -46,34 +46,27 @@ namespace Project56_new.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var OrdMain = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
-
-            // var OrdLines = _context.OrdLines.Where(line => line.ord_id == OrdMain.id).ToList();
-           var ShoppingCartItems =  (from ordlines in _context.OrdLines
-                                    join itms in _context.Itms on ordlines.itm_id equals itms.id
-                                    join ordmain in _context.OrdMains on ordlines.ord_id equals ordmain.id
-                                    where ordlines.ord_id == OrdMain.id
-                                    select new ShoppingCartModel 
-                                    {
-                                        description = itms.description,
-                                        price = itms.price,
-                                        qty = ordlines.qty,
-                                        ordline_id = ordlines.id,
-                                        subtotal = ordlines.qty *itms.price,
-                                        photo_url = itms.photo_url
-                                     } ) ?? null ;
-
-            var list = new List<ShoppingCartModel>(ShoppingCartItems);
-            if (ShoppingCartItems != null )
-            {
-                
-
-                return View(list);
+           var OrdMain = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
+           var OrdLines = _context.OrdLines.Where(line => line.ord_id == OrdMain.id).ToList();
+           if (OrdLines.Count() > 0)
+           {
+                var ShoppingCartItems = from ordlines in _context.OrdLines
+                                        join itms in _context.Itms on ordlines.itm_id equals itms.id
+                                        join ordmain in _context.OrdMains on ordlines.ord_id equals ordmain.id
+                                        where ordlines.ord_id == OrdMain.id
+                                        select new ShoppingCartModel
+                                        {
+                                            description = itms.description,
+                                            price = itms.price,
+                                            qty = ordlines.qty,
+                                            ordline_id = ordlines.id,
+                                            subtotal = ordlines.qty * itms.price,
+                                            photo_url = itms.photo_url
+                                        };
+                return View(ShoppingCartItems.ToList());
             }
-            else
-            {
-                return View();
-            }
+            return View();
+            
 
                 
             
