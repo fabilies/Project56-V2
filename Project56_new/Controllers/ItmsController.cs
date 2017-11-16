@@ -47,6 +47,43 @@ namespace Project56_new.Controllers
 
             return View(itms);
         }
+        // Algemene upload functie
+        public async void ItmImage(Itms itms)
+        {
+            var files = HttpContext.Request.Form.Files;
+            foreach (var Image in files)
+            {
+                if (Image != null && Image.Length > 0)
+                {
+
+                    var file = Image;
+                    var uploads = Path.Combine("wwwroot\\images\\products\\");
+
+                    if (file.Length > 0)
+                    {
+                        Random rnd = new Random();
+                        int num = rnd.Next(0000000, 9999999);
+
+                        var fileName = ContentDispositionHeaderValue.Parse
+                            (file.ContentDisposition).FileName.Trim('"');
+
+
+                        string Key = num + fileName;
+
+                        System.Console.WriteLine(fileName);
+                        using (var fileStream = new FileStream(Path.Combine(uploads, Key), FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                            itms.photo_url = Key;
+
+                        }
+
+
+                    }
+                }
+            }
+        }
+
 
         // GET: Itms/Create
         public IActionResult Create()
@@ -63,38 +100,8 @@ namespace Project56_new.Controllers
         {
             if (ModelState.IsValid)
             {
-                var files = HttpContext.Request.Form.Files;
-                foreach (var Image in files)
-                {
-                    if (Image != null && Image.Length > 0)
-                    {
 
-                        var file = Image;
-                        var uploads = Path.Combine("wwwroot\\images\\products\\");
-
-                        if (file.Length > 0)
-                        {
-                            Random rnd = new Random();
-                            int num = rnd.Next(0000000, 9999999);
-                            
-                            var fileName = ContentDispositionHeaderValue.Parse
-                                (file.ContentDisposition).FileName.Trim('"');
-
-
-                            string Key = num + fileName;
-                            
-                            System.Console.WriteLine(fileName);
-                            using (var fileStream = new FileStream(Path.Combine(uploads, Key), FileMode.Create))
-                            {
-                                await file.CopyToAsync(fileStream);
-                                itms.photo_url = Key;
-
-                            }
-
-
-                        }
-                    }
-                }
+                this.ItmImage(itms);
                 _context.Add(itms);
                 await _context.SaveChangesAsync();
            
@@ -131,7 +138,7 @@ namespace Project56_new.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,description,long_description,category_id,price,photo_url, itm_quantity,l_show,dt_created,dt_modified")] Itms itms)
+        public async Task<IActionResult> Edit(int id, [Bind("id,description,long_description,category_id,price,photo_url,l_show,dt_created,dt_modified , itm_quantity")] Itms itms)
         {
             if (id != itms.id)
             {
@@ -142,6 +149,7 @@ namespace Project56_new.Controllers
             {
                 try
                 {
+                    this.ItmImage(itms);
                     _context.Update(itms);
                     await _context.SaveChangesAsync();
                 }
