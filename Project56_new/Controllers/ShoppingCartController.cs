@@ -46,33 +46,30 @@ namespace Project56_new.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var OrdMain = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
-
-            // var OrdLines = _context.OrdLines.Where(line => line.ord_id == OrdMain.id).ToList();
-            var ShoppingCartItems = from ordlines in _context.OrdLines
-                                    join itms in _context.Itms on ordlines.itm_id equals itms.id
-
-                                    select new ShoppingCartModel 
-                                    {
-                                        description = itms.description,
-                                        price = itms.price,
-                                        qty = ordlines.qty,
-                                        ordline_id = ordlines.id,
-                                        subtotal = ordlines.qty *itms.price,
-                                        photo_url = itms.photo_url
-                                     };
-
-
-            if (ShoppingCartItems == null)
-            {
-                return View();
-            }
-            else {
-               
-                var TotalPice =  ShoppingCartItems.Sum(s => s.subtotal);
-                ViewBag.Total = TotalPice;
+           var OrdMain = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
+           var OrdLines = _context.OrdLines.Where(line => line.ord_id == OrdMain.id).ToList();
+           if (OrdLines.Count() > 0)
+           {
+                var ShoppingCartItems = from ordlines in _context.OrdLines
+                                        join itms in _context.Itms on ordlines.itm_id equals itms.id
+                                        join ordmain in _context.OrdMains on ordlines.ord_id equals ordmain.id
+                                        where ordlines.ord_id == OrdMain.id
+                                        select new ShoppingCartModel
+                                        {
+                                            description = itms.description,
+                                            price = itms.price,
+                                            qty = ordlines.qty,
+                                            ordline_id = ordlines.id,
+                                            subtotal = ordlines.qty * itms.price,
+                                            photo_url = itms.photo_url
+                                        };
                 return View(ShoppingCartItems.ToList());
-            }  
+            }
+            return View();
+            
+
+                
+            
         }
         public async Task<ActionResult> SaveItmInShoppingCart(int itm_id)
         {
@@ -102,7 +99,7 @@ namespace Project56_new.Controllers
             }
             
 
-            var CheckItmId = _context.OrdLines.Where(i => i.itm_id == itm_id).FirstOrDefault();
+            var CheckItmId = _context.OrdLines.Where(i => i.itm_id == itm_id && i.ord_id == Lorder_id).FirstOrDefault();
             // item exist
             if (CheckItmId != null)
             {
@@ -126,5 +123,27 @@ namespace Project56_new.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public  ActionResult ConfirmOrder()
+        {
+            // get the logged-in user id
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var orders = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
+            orders.ordstatus_id = 5;
+            _context.Update(orders);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+
+        }
+
+      //  [HttpGet]
+        public  IActionResult GetOrderView() {
+            return View();
+        }
+
+
     }
+
 }

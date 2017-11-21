@@ -8,6 +8,7 @@
     <h2>ShoppingCart</h2>
 
     <div class="container">
+        <form method="post" asp-action="GetOrderView">
             <table id="cart" class="table table-hover table-condensed">
                 <thead>
                     <tr>
@@ -37,9 +38,10 @@
                             </td>
                             <td data-th="Subtotal" class="text-center">@Html.DisplayFor(model => item.subtotal) </td>
                             <td class="actions" data-th="">
-                            <td>ShoppingCart
+                            <td>
+                                ShoppingCart
                                 <a href='@Url.Action("DeleteItmFromShoppingCart","ShoppingCart", new { ordline_id  = item.ordline_id })'>Verwijderen</a>
-                                   @ViewBag.ErrorMessage;
+                                @ViewBag.ErrorMessage;
                             </td>
                         </tr>
                     }
@@ -51,10 +53,14 @@
                     <tr>
                         <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
                         <td colspan="2" class="hidden-xs"></td>
-                        <td class="hidden-xs text-center"><strong>@ViewBag.total</strong></td>
+                        <td class="hidden-xs text-center"><strong>@Model.Sum(itm => itm.subtotal)</strong></td>
                         <td><a href="" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
                     </tr>
 
                 </tfoot>
             </table>
+            <div class="form-group">
+                <input type="submit" value="Confirm order" class="btn btn-success" />
+            </div>
+        </form>
 </div>
