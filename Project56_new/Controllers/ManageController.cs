@@ -62,7 +62,12 @@ namespace Project56_new.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                gender = user.gender,
+                dt_birth = user.dt_birth ,
+                firstname = user.firstname,
+                middlename = user.middlename,
+                lastname = user.lastname
             };
 
             return View(model);
@@ -94,6 +99,11 @@ namespace Project56_new.Controllers
             }
 
             var phoneNumber = user.PhoneNumber;
+            user.firstname = model.firstname;
+            user.middlename = model.middlename;
+            user.lastname = model.lastname;
+            user.gender = model.gender;
+            user.dt_birth = model.dt_birth;
             if (model.PhoneNumber != phoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
@@ -102,6 +112,8 @@ namespace Project56_new.Controllers
                     throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
             }
+            var ChangeUserResult = _context.Users.Update(user);
+            _context.SaveChanges();
 
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));
@@ -147,6 +159,7 @@ namespace Project56_new.Controllers
             user.a_adres = model.a_adres;
             user.a_city = model.a_city;
             user.a_zipcode = model.a_zipcode;
+            user.a_number = model.a_number;
 
             var changeAdresResult = _context.Users.Update(user);
             _context.SaveChanges();
@@ -171,7 +184,8 @@ namespace Project56_new.Controllers
             var model = new ChangeAdresViewModel
             { a_adres = user.a_adres,
               a_city = user.a_city,
-              a_zipcode = user.a_zipcode
+              a_zipcode = user.a_zipcode,
+              a_number = user.a_number
             };
             return View(model);
         }

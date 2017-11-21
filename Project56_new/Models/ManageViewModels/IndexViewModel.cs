@@ -13,25 +13,34 @@ namespace Project56_new.Models.ManageViewModels
 
         public bool IsEmailConfirmed { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Email invullen is verplicht")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "Telefoonnummer invullen is verplicht")]
         [Phone]
         [Display(Name = "Telefoonnummer")]
 
         public string PhoneNumber { get; set; }
 
-        //[Required]
-        //public string Fullname { get; set; }
+        [Required(ErrorMessage = "Voornaam invullen is verplicht")]
+        [Display(Name = "Voornaam")]
+        public string firstname { get; set; }
 
+        [Display(Name = "Tussenvoegsel")]
+        public string middlename { get; set; }
 
-        //[Required]
+        [Required(ErrorMessage = "Achternaam invullen is verplicht")]
+        [Display(Name = "Achternaam")]
+        public string lastname { get; set; }
 
-        //public DateTime Dt_Birth { get; set; }
-       
-        //public string Gender { get; set; }
+        [Required(ErrorMessage = "Geboortedatum invullen is verplicht")]
+        [Display(Name = "Geboortedatum")]
+        public DateTime dt_birth { get; set; }
+
+        [Required]
+        public string gender { get; set; }
 
 
         public string StatusMessage { get; set; }

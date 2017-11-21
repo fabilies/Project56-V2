@@ -11,9 +11,10 @@ using System;
 namespace Project56_new.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171118145736_naam_migrationscript")]
+    partial class naam_migrationscript
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,19 +171,7 @@ namespace Project56_new.Migrations
 
                     b.Property<string>("a_city");
 
-                    b.Property<string>("a_number");
-
                     b.Property<string>("a_zipcode");
-
-                    b.Property<DateTime>("dt_birth");
-
-                    b.Property<string>("firstname");
-
-                    b.Property<string>("gender");
-
-                    b.Property<string>("lastname");
-
-                    b.Property<string>("middlename");
 
                     b.HasKey("Id");
 

@@ -20,12 +20,12 @@ namespace Project56_new.Models
         public string password {get;set;}   
         public int user_level {get;set;}
 
-        public string fullname {get;set;}   
+       /// public string fullname {get;set;}   
         
         // Error while updating database 
         // Timezone is not set --> FIX
-        public DateTime dt_birth {get;set;}
-        public string gender {get;set;}
+       // public DateTime dt_birth {get;set;}
+       // public string gender {get;set;}
 
         public int l_show {get;set;}
 
@@ -34,10 +34,10 @@ namespace Project56_new.Models
 
         public DateTime dt_modified {get{ return DateTime.Now;}}
         // adres details
-        public string a_zipcode {get;set;}
+      //  public string a_zipcode {get;set;}
 
-        public string a_adres {get;set;}
-         public string a_city{get;set;}
+     //   public string a_adres {get;set;}
+      //   public string a_city{get;set;}
 
         
           
