@@ -34,7 +34,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="ShoppingCart" asp-action="Index">Winkelwagen</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Favourites">Favorieten</a></li>
+                    <li><a asp-area="" asp-controller="~/.." asp-action="WishList">Verlanglijst</a></li>
                     @if (ViewContext.HttpContext.User.IsInRole("Admin"))
                     {
                         <li class="divider-vertical"></li>

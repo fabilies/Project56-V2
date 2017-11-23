@@ -11,8 +11,8 @@ using System;
 namespace Project56_new.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171123171955_Favourites")]
-    partial class Favourites
+    [Migration("20171123225209_wishlist")]
+    partial class wishlist
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -198,6 +198,22 @@ namespace Project56_new.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Project56_new.Models.FavouritesModel", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("dt_created");
+
+                    b.Property<int>("itm_id");
+
+                    b.Property<int>("user_id");
+
+                    b.HasKey("id");
+
+                    b.ToTable("FavouritesModel");
+                });
+
             modelBuilder.Entity("Project56_new.Models.ItmCategories", b =>
                 {
                     b.Property<int>("id")
@@ -326,6 +342,80 @@ namespace Project56_new.Migrations
                     b.HasKey("id");
 
                     b.ToTable("OrdStatus");
+                });
+
+            modelBuilder.Entity("Project56_new.Models.WishLines", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("dt_created");
+
+                    b.Property<DateTime>("dt_modified");
+
+                    b.Property<int>("itm_id");
+
+                    b.Property<int>("l_show");
+
+                    b.Property<int>("ord_id");
+
+                    b.Property<int>("qty");
+
+                    b.HasKey("id");
+
+                    b.ToTable("WishLines");
+                });
+
+            modelBuilder.Entity("Project56_new.Models.WishlistModel", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<float>("Total");
+
+                    b.Property<string>("description");
+
+                    b.Property<int>("itm_id");
+
+                    b.Property<string>("long_description");
+
+                    b.Property<int>("ordline_id");
+
+                    b.Property<string>("photo_url");
+
+                    b.Property<float>("price");
+
+                    b.Property<int>("qty");
+
+                    b.Property<float>("subtotal");
+
+                    b.HasKey("id");
+
+                    b.ToTable("WishlistModel");
+                });
+
+            modelBuilder.Entity("Project56_new.Models.WishMains", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("dt_created");
+
+                    b.Property<DateTime>("dt_delivery");
+
+                    b.Property<DateTime>("dt_modified");
+
+                    b.Property<DateTime>("dt_order");
+
+                    b.Property<int>("l_show");
+
+                    b.Property<int>("ordstatus_id");
+
+                    b.Property<string>("user_ad");
+
+                    b.HasKey("id");
+
+                    b.ToTable("WishMains");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

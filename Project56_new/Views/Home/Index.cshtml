@@ -59,12 +59,15 @@
                                     <div class="sale-title"><h3>@Html.DisplayFor(modelItem => item.description)</h3></div>
                                     <div class="sale-price"><h3>&euro; @Html.DisplayFor(modelItem => item.price)-</h3></div>
                                 </div>
-                                <p>
-                                    <!-- Hier item.long_description-->
-                                    De Original Wayfarer zonnebrillen van Ray-Ban hebben de best herkenbare stijl uit de geschiedenis van zonnebrillen.
-                                </p>
+                                <div class="sale-description">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            @Html.DisplayFor(modelItem => item.long_description)
+                                        </div>
+                                    </div>
+                                </div>
                                 <p><a class="btn btn-primary" href="/ProductDetails/View/@Html.DisplayFor(modelItem => item.id)">Lees meer &raquo;</a>
-                                    <a href="/"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                    @*<a href="/"><i class="fa fa-star" aria-hidden="true"></i></a>*@
                                 </p>
                                 
                                 @if (item.itm_quantity != 0)
@@ -82,6 +85,13 @@
                                 {
                                     <p><a class="btn btn-info" href="home/contact">Contact &raquo;</a></p>
                                 }
+                                
+                                @Html.ActionLink("Toevoegen aan verlanglijst", "addWishList", "Wishlist",
+                                routeValues: new
+                                {
+                                   itm_id = item.id
+                                },
+                                htmlAttributes: new { @class = "fa fa-star" })
                                 
                             </div>
 

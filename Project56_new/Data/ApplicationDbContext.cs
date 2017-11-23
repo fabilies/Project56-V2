@@ -10,6 +10,7 @@ namespace Project56_new.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -29,7 +30,10 @@ namespace Project56_new.Data
         public DbSet<Project56_new.Models.OrdHistory> OrdHistory { get; set; }
         public DbSet<Project56_new.Models.OrdLines> OrdLines { get; set; }
         public DbSet<Project56_new.Models.OrdMains> OrdMains { get; set; }
-
         public DbSet<Project56_new.Models.OrdStatus> OrdStatus { get; set; }
+        public DbSet<Project56_new.Models.WishMains> WishMains { get; set; }
+        public DbSet<Project56_new.Models.WishLines> WishLines { get; set; }
+        public DbSet<Project56_new.Models.WishlistModel> WishlistModel { get; set; }
+
     }
 }
