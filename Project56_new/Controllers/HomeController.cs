@@ -88,6 +88,13 @@ namespace Project56_new.Controllers
             return View();
         }
 
+        public IActionResult Favourites()
+        {
+            ViewData["Message"] = "Your Favourites page.";
+
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

@@ -11,7 +11,7 @@ using System;
 namespace Project56_new.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171123131642_Favourites")]
+    [Migration("20171123171955_Favourites")]
     partial class Favourites
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
