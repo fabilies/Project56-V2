@@ -13,3 +13,8 @@
 *.ide
 .vs/Project56_new/v15/.suo
 *.ide-shm
+*.ide
+*.config
+.vs/Project56_new/v15/.suo
+.vs/Project56_new/v15/Server/sqlite3/storage.ide-shm
+.vs/Project56_new/v15/sqlite3/storage.ide-wal

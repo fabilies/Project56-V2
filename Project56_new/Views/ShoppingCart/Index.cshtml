@@ -1,66 +1,70 @@
-﻿@model IEnumerable<Project56_new.Models.ShoppingCartModel>
+﻿@model List<Project56_new.Models.ShoppingCartModel>
 
     
-    @{
-//ViewData["Title"] = "ShoppingCart";
-    }
+    @{}
+        <h2>Jouw winkelwagen</h2>
 
-    <h2>ShoppingCart</h2>
-
-    <div class="container">
-        <form method="post" asp-action="GetOrderView">
-            <table id="cart" class="table table-hover table-condensed">
-                <thead>
-                    <tr>
-                        <th style="width:50%">Product</th>
-                        <th style="width:10%">Price</th>
-                        <th style="width:8%">Quantity</th>
-                        <th style="width:22%" class="text-center">Subtotal</th>
-                        <th style="width:10%"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-            {
+        <div class="container">
+            <form  method="post" >
+              <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <table id="cart" class="table table-hover table-condensed">
+                    <thead>
                         <tr>
-                            <td data-th="Product">
-                                <div class="row">
-                                    <div class="col-sm-2 hidden-xs"><img src="~/images/products/@Html.DisplayFor(model => item.photo_url)" alt="..." class="img-responsive" /></div>
-                                    <div class="col-sm-10">
-                                        <h4 class="nomargin">@Html.DisplayFor(model => item.description)</h4>
-                                        <p>@Html.DisplayFor(model => item.long_description)</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td data-th="Price">@Html.DisplayFor(model => item.price)</td>
-                            <td data-th="Quantity">
-                                <input type="number" class="form-control text-center" value="@Html.DisplayFor(model => item.qty)">
-                            </td>
-                            <td data-th="Subtotal" class="text-center">@Html.DisplayFor(model => item.subtotal) </td>
-                            <td class="actions" data-th="">
-                            <td>
-                                ShoppingCart
-                                <a href='@Url.Action("DeleteItmFromShoppingCart","ShoppingCart", new { ordline_id  = item.ordline_id })'>Verwijderen</a>
-                                @ViewBag.ErrorMessage;
-                            </td>
+                            <th style="width:50%">Artikel</th>
+                            <th style="width:10%">Prijs</th>
+                            <th style="width:8%">Aantal</th>
+                            <th style="width:22%" class="text-center">Subtotal</th>
+                            <th style="width:10%"></th>
                         </tr>
-                    }
-                </tbody>
-                <tfoot>
-                    <tr class="visible-xs">
-                        <td class="text-center"><strong></strong></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
-                        <td colspan="2" class="hidden-xs"></td>
-                        <td class="hidden-xs text-center"><strong>@Model.Sum(itm => itm.subtotal)</strong></td>
-                        <td><a href="" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
-                    </tr>
+                    </thead>
+                    <tbody>
+                    @if (ViewBag.model_for_view != null)
 
-                </tfoot>
-            </table>
-            <div class="form-group">
-                <input type="submit" value="Confirm order" class="btn btn-success" />
-            </div>
-        </form>
-</div>
+                    {
+                        @for (int i = 0; i < Model.Count(); i++)
+                        {
+                            <tr>
+                                <td data-th="Product">
+                                    <div class="row">
+                                        <div class="col-sm-2 hidden-xs"><img src="~/images/products/@Html.DisplayFor(model => model[i].photo_url)" alt="..." class="img-responsive" /></div>
+                                        <div class="col-sm-10">
+                                            <h4 class="nomargin">@Html.DisplayFor(model => model[i].description)</h4>
+                                            <p>@Html.DisplayFor(model => model[i].long_description)</p>
+                                        </div>
+                                    </div>
+                                </td>
+                               
+                                <td data-th="Price">@Html.DisplayFor(model => model[i].price)</td>
+                                <td data-th="Quantity">
+                                    <input asp-for="@Model[i].qty" type="number" min="0" max="@Html.DisplayFor(model => model[i].stock)" class="form-control" value="@Html.DisplayFor(model => model[i].qty  )">
+                                  @Html.HiddenFor(x => Model[i].ordline_id)
+                                  @Html.HiddenFor(x => Model[i].ord_ad)
+                                    @Html.HiddenFor(x => Model[i].itm_id)
+                                </td>
+                                <td data-th="Subtotal" class="text-center">@Model.Sum(itm => itm.subtotal) </td>
+                                <td class="actions" data-th="">
+                                <td>
+                                    <a href='@Url.Action("DeleteItmFromShoppingCart", "ShoppingCart", new { ordline_id = @Html.DisplayFor(model => model[i].ordline_id) })' class="btn btn-danger btn-block" >Verwijderen</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    </tbody>
+                    <tfoot>
+                        <tr class="visible-xs">
+                            <td class="text-center"><strong></strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="hidden-xs"></td>
+                            @if (ViewBag.model_for_view != null)
+                            {
+                                <td class="hidden-xs text-center"><strong>@Model.Sum(itm => itm.subtotal)</strong></td>
+                            }
+                            <td></td>
+                            <td><button type="submit"  class="btn btn-success btn-block">Bevestig order</button></td>                      
+                        </tr>
+
+                    </tfoot>
+                </table>
+            </form>
+    </div>

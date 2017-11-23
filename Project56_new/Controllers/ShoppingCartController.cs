@@ -7,6 +7,7 @@ using Project56_new.Data;
 using System.Security.Claims;
 using Project56_new.Models;
 
+
 namespace Project56_new.Controllers
 {
     public class ShoppingCartController : Controller
@@ -18,11 +19,8 @@ namespace Project56_new.Controllers
         {
             _context = context;
         }
-         // 1 : klikken op verwijderen
-         // 2 : form method naar deze method sturen met parameter ordline_id {razor}
 
         [HttpGet]
-        // deze functie
         public async Task<ActionResult> DeleteItmFromShoppingCart(int ordline_id)
         {
             var result = (from ordlines in _context.OrdLines
@@ -31,7 +29,7 @@ namespace Project56_new.Controllers
             if (result != null)
             {
                 _context.OrdLines.Remove(result);
-               await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
             else
             {
@@ -40,64 +38,79 @@ namespace Project56_new.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-        [HttpGet]
-        public IActionResult Index()
+        public int CheckIfOrderExist()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-           var OrdMain = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
-           var OrdLines = _context.OrdLines.Where(line => line.ord_id == OrdMain.id).ToList();
-           if (OrdLines.Count() > 0)
-           {
-                var ShoppingCartItems = from ordlines in _context.OrdLines
-                                        join itms in _context.Itms on ordlines.itm_id equals itms.id
-                                        join ordmain in _context.OrdMains on ordlines.ord_id equals ordmain.id
-                                        where ordlines.ord_id == OrdMain.id
-                                        select new ShoppingCartModel
-                                        {
-                                            description = itms.description,
-                                            price = itms.price,
-                                            qty = ordlines.qty,
-                                            ordline_id = ordlines.id,
-                                            subtotal = ordlines.qty * itms.price,
-                                            photo_url = itms.photo_url
-                                        };
-                return View(ShoppingCartItems.ToList());
+            OrdMains OrdMain = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
+            if (OrdMain != null)
+            {
+                return OrdMain.id;
             }
-            return View();
-            
+            else
+            {
+                return 0;
+            }
+        }
+        public int CreateOrder()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            OrdMains ord = new OrdMains();
+            ord.user_ad = userId;
+            ord.l_show = 1;
+            ord.ordstatus_id = 3;
+            ord.dt_created = DateTime.Now;
+            _context.Add(ord);
+            _context.SaveChanges();
 
-                
-            
+            return ord.id;
+        }
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            IQueryable<ShoppingCartModel> model = null;
+
+            int order_id = CheckIfOrderExist();
+            if (order_id != 0)
+            {
+                model = from ordlines in _context.OrdLines
+                        join itms in _context.Itms on ordlines.itm_id equals itms.id
+                        join ordmain in _context.OrdMains on ordlines.ord_id equals ordmain.id
+                        where ordlines.ord_id == order_id
+                        select new ShoppingCartModel
+                        {
+                            description = itms.description,
+                            price = itms.price,
+                            qty = ordlines.qty,
+                            ordline_id = ordlines.id,
+                            subtotal = ordlines.qty * itms.price,
+                            photo_url = itms.photo_url,
+                            stock = itms.itm_quantity,
+                            ord_ad = order_id,
+                            itm_id = itms.id
+
+                        };
+                ViewBag.model_for_view = model;
+                return View(model.ToList());
+            }
+            ViewBag.model_for_view = model;
+            return View();
+
         }
         public async Task<ActionResult> SaveItmInShoppingCart(int itm_id)
         {
             int Lorder_id;
-
-            // get the logged-in user id
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var orders = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
-            if (orders != null)
+            int order_id = CheckIfOrderExist();
+            if (order_id != 0)
             {
                 // record found 
-                Lorder_id = orders.id;
+                Lorder_id = order_id;
             }
             else
             {
-                // no record yet
-                OrdMains ord = new OrdMains();
-                ord.user_ad = userId;
-                ord.l_show = 1;
-                ord.ordstatus_id = 3;
-                ord.dt_created = DateTime.Now;
-                _context.Add(ord);
-                await _context.SaveChangesAsync();
-
-                Lorder_id = ord.id;
+                Lorder_id = CreateOrder();
             }
-            
+
 
             var CheckItmId = _context.OrdLines.Where(i => i.itm_id == itm_id && i.ord_id == Lorder_id).FirstOrDefault();
             // item exist
@@ -124,26 +137,61 @@ namespace Project56_new.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public void DecreaseStock(int itm_id , int qty)
+        {
+
+            var item = (from i in _context.Itms
+                        where i.id == itm_id
+                        select i).FirstOrDefault();
+
+            item.itm_quantity =  item.itm_quantity - qty;
+
+            var result  = _context.Itms.Update(item);
+        //    _context.SaveChanges();
+       
+        }
         [HttpPost]
-        public  ActionResult ConfirmOrder()
+        public ActionResult ConfirmOrder()
         {
             // get the logged-in user id
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             var orders = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
+
+            var ListOfItems = _context.OrdLines.Where(o => o.ord_id == orders.id);
+            foreach (var l in ListOfItems)
+            {
+                DecreaseStock(l.itm_id, l.qty);
+            }
             orders.ordstatus_id = 5;
             _context.Update(orders);
+
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
 
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Index(List<ShoppingCartModel> shoppingcart_model)
+        {
+            List<OrdLines> ordlines = new List<OrdLines>();
+            
+            foreach(var s in shoppingcart_model)
+            {
+                ordlines.Add(new OrdLines {  id = s.ordline_id, qty = s.qty , ord_id = s.ord_ad  , l_show = 1 , itm_id = s.itm_id});
+            }
 
-      //  [HttpGet]
-        public  IActionResult GetOrderView() {
+            foreach (var o in ordlines)
+            {
+                _context.OrdLines.Update(o);
+                _context.SaveChanges();
+                
+            }
+            return View(nameof(GetOrderView));
+        }
+        [HttpGet]
+        public IActionResult GetOrderView()
+        {
             return View();
         }
-
-
     }
-
 }
