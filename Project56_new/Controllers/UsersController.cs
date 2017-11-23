@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Project56_new.Data;
 using Project56_new.Models;
 using Microsoft.AspNetCore.Authorization;
-using Project56_new.Models.AdminViewModel;
 
 namespace Project56_new.Controllers
 {

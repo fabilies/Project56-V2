@@ -1,17 +1,46 @@
 ﻿@{
     ViewData["Title"] = "Contact";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-<a href="~/Views/Home/Contact.cshtml">~/Views/Home/Contact.cshtml</a>
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-area">
+                <form role="form">
+                    <h2 style="margin-bottom: 15px;">Contact</h2>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Naam" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Onderwerp" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" type="textarea" id="message" placeholder="Bericht" maxlength="140" rows="7"></textarea>
+                    </div>
+
+                    <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Verstuur</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2 style="margin-bottom: 15px;">Gegevens</h2>
+            <address>
+                Hogeschool Rotterdam<br />
+                Rotterdam, 1234AB<br />
+                Wijnhaven 107
+
+            </address>
+            <hr />
+            <address>
+                <strong>Ondersteuning:</strong> <a href="mailto:Support@example.com">info@bdhstudios.com</a><br />
+                <strong>Telefoon:</strong> <a href="/">0182 - 999999</a><br />
+            </address>
+        </div>
+
+
+    </div>
+
+</div>

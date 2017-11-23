@@ -15,6 +15,7 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    <script src="https://use.fontawesome.com/c38f765828.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -33,13 +34,21 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="ShoppingCart" asp-action="Index">Winkelwagen</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Favourites">Favorieten</a></li>
                     @if (ViewContext.HttpContext.User.IsInRole("Admin"))
                     {
-                        <li><a asp-area="" asp-controller="Itms" asp-action="Index">Beheer</a></li>
-
+                        <li class="divider-vertical"></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Beheer<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="" asp-controller="Itms" asp-action="Index"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Producten</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a asp-area="" asp-controller="Users" asp-action="Index"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="disabled"><a asp-area="" asp-controller="" asp-action=""><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span> Statistieken</a></li>
+                            </ul>
+                        </li>
                     }
-
-
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
