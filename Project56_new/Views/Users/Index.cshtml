@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<Project56_new.Models.ApplicationUser>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Gebruikersoverzicht";
 }
 
-<h2>Index</h2>
+<h2>Gebruikersoverzicht</h2>
 
-<p>
-    <a class="btn btn-success" asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                <span>Acties</span>
             </th>
         </tr>
     </thead>
@@ -40,3 +40,6 @@
 }
     </tbody>
 </table>
+<p>
+    <a class="btn btn-success" asp-action="Create">Create New</a>
+</p>
