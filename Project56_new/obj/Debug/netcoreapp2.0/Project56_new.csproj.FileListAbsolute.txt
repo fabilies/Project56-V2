@@ -58,3 +58,15 @@ C:\Users\Acer\Documents\school\project 56\Project56-V2\Project56_new\obj\Debug\n
 C:\Users\Acer\Documents\school\project 56\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.dll
 C:\Users\Acer\Documents\school\project 56\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.pdb
 C:\Users\Acer\Documents\school\project 56\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\ImakeIT Uitleen\Documents\GitHub\Project56-V2\Project56_new\bin\Debug\netcoreapp2.0\Project56_new.deps.json
+C:\Users\ImakeIT Uitleen\Documents\GitHub\Project56-V2\Project56_new\bin\Debug\netcoreapp2.0\Project56_new.runtimeconfig.json
+C:\Users\ImakeIT Uitleen\Documents\GitHub\Project56-V2\Project56_new\bin\Debug\netcoreapp2.0\Project56_new.runtimeconfig.dev.json
+C:\Users\ImakeIT Uitleen\Documents\GitHub\Project56-V2\Project56_new\bin\Debug\netcoreapp2.0\Project56_new.dll
+C:\Users\ImakeIT Uitleen\Documents\GitHub\Project56-V2\Project56_new\bin\Debug\netcoreapp2.0\Project56_new.pdb
+C:\Users\ImakeIT Uitleen\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.csprojResolveAssemblyReference.cache
+C:\Users\ImakeIT Uitleen\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.csproj.CoreCompileInputs.cache
+C:\Users\ImakeIT Uitleen\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\ImakeIT Uitleen\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.AssemblyInfoInputs.cache
+C:\Users\ImakeIT Uitleen\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.AssemblyInfo.cs
+C:\Users\ImakeIT Uitleen\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.dll
+C:\Users\ImakeIT Uitleen\Documents\GitHub\Project56-V2\Project56_new\obj\Debug\netcoreapp2.0\Project56_new.pdb
