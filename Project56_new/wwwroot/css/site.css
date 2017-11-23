@@ -377,3 +377,9 @@ li.divider-vertical {
     margin: 0 10px;
     border: 1px solid #035984;
 }
+
+i.fa.fa-star {
+    font-size: 3em;
+    color: #0f4de1;
+    float: right;
+}
