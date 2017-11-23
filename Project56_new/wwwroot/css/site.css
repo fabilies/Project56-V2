@@ -372,3 +372,9 @@ header {
     margin-right: 0px !important;
     width: 99% !important;
 }
+
+li.divider-vertical {
+    height: 50px;
+    margin: 0 10px;
+    border: 1px solid #035984;
+}

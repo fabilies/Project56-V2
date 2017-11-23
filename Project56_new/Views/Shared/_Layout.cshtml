@@ -35,11 +35,16 @@
                     <li><a asp-area="" asp-controller="ShoppingCart" asp-action="Index">Winkelwagen</a></li>
                     @if (ViewContext.HttpContext.User.IsInRole("Admin"))
                     {
-                        <li><a asp-area="" asp-controller="Itms" asp-action="Index">Beheer</a></li>
-
+                        <li class="divider-vertical"></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Beheer<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="" asp-controller="Itms" asp-action="Index"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Producten</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a asp-area="" asp-controller="Users" asp-action="Index"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users</a></li>
+                            </ul>
+                        </li>
                     }
-
-
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
