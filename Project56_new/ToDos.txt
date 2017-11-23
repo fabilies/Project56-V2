@@ -1,0 +1,6 @@
+﻿TODOS 
+
+
+Order Mail
+// shoppingcart
+Prijs updaten als de waarden veranderd van aantal

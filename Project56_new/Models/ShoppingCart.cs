@@ -18,5 +18,7 @@ namespace Project56_new.Models
 
         public float Total { get; set; }
         public float subtotal { get; set; }
+        public int stock { get; set; }
+        public int ord_ad { get; set; }
     }
 }
