@@ -23,9 +23,9 @@ namespace Project56_new.Controllers
         public string tf(string _input)
         {
             if (_input == "on" || _input == "true")
-                return "true";
+                return "1";
             else
-                return "false";
+                return "-1";
         }
 
         // TODO : Modify it so it works out of the box. Might need to make a new
@@ -48,6 +48,20 @@ namespace Project56_new.Controllers
                 {
                     Debug.WriteLine("Ayy not null.");
                     products = products.Where(p => p.description.Contains(ViewData["CurrentFilter"].ToString()));
+                }
+                //TODO : Add Sale Check
+                if (ViewData["isOnSale"].ToString() == "1")
+                {
+                    Debug.WriteLine("Ayy IS ON SALE BB");
+                    products = products.Where(p => p.IsSales.ToString() == "1");
+                }
+
+
+                //TODO :  Price Check
+                if(ViewData["maxPrice"] != null && float.Parse(ViewData["maxPrice"].ToString()) != 0f)
+                {
+                    Debug.WriteLine("MAX PRICE IS SET AYY");
+                    products = products.Where(p => p.price <= float.Parse(ViewData["maxPrice"].ToString()));
                 }
 
             }
