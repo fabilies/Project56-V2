@@ -8,10 +8,9 @@
 
 <table class="table">
 
-@if (ViewBag.model_for_view != null){
-    @foreach (var item in Model)
-    {
-    
+@if (ViewBag.model_for_view != null) {
+     @foreach (var item in Model)
+     {
         <tr>
             <td>
                 <h4>@Html.DisplayFor(modelItem => item.description)</h4>
@@ -28,15 +27,15 @@
                 @Html.ActionLink("Toevoegen aan winkelmand", "SaveItmInShoppingCart", "ShoppingCart",
                        routeValues: new
                        {
-                           itm_id = item.id
+                           itm_id = item.itm_id
                        },
-                         htmlAttributes: new { @class = "btn btn-success btn-large disabled" })
+                         htmlAttributes: new { @class = "btn btn-success btn-large" })
 
                 <a class="btn btn-danger" href='@Url.Action("DeleteFromWishList", "WishList", new { ordline_id = item.ordline_id })'>Verwijderen</a>
                 @ViewBag.ErrorMessage
             </td>
         </tr>
-        }
+      }
 
 }
 else

@@ -72,14 +72,12 @@
                                 
                                 @if (item.itm_quantity != 0)
                                 {
-                                    <p>
                                         @Html.ActionLink("Toevoegen aan winkelmand", "SaveItmInShoppingCart", "ShoppingCart",
-                      routeValues: new
-                      {
-                          itm_id = item.id
-                      },
-                        htmlAttributes: new { @class = "btn btn-success btn-large" })
-                                </p>
+                                        routeValues: new
+                                        {
+                                           itm_id = item.id
+                                        },
+                                        htmlAttributes: new { @class = "btn btn-success btn-large" })
                                 }
                                 else
                                 {
@@ -92,7 +90,11 @@
                                    itm_id = item.id
                                 },
                                 htmlAttributes: new { @class = "fa fa-star" })
-                                
+
+                                <a href="@Url.Action("addWishList", "WishList" , new { itm_id = item.id })">
+                                    <i class="fa fa-star"></i>
+                                </a>
+
                             </div>
 
                         }

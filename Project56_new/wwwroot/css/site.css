@@ -380,6 +380,12 @@ li.divider-vertical {
 
 i.fa.fa-star {
     font-size: 3em;
-    color: #0f4de1;
+    color: #b9b9b9;
+    float: right;
+}
+
+i.fa.fa-star:hover {
+    font-size: 3em;
+    color: #ff950d;
     float: right;
 }

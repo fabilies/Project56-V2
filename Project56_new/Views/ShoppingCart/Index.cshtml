@@ -44,7 +44,7 @@
                                 <td data-th="Subtotal" class="text-center">@Model.Sum(itm => itm.subtotal) </td>
                                 <td class="actions" data-th="">
                                 <td>
-                                    <a href='@Url.Action("DeleteItmFromShoppingCart", "ShoppingCart", new { ordline_id = @Html.DisplayFor(model => model[i].ordline_id) })' class="btn btn-danger btn-block" >Verwijderen</a>
+                                    <a href='@Url.Action("DeleteItmFromShoppingCart", "ShoppingCart", new { ordline_id = Model[i].ordline_id })' class="btn btn-danger btn-block" >Verwijderen</a>
                                 </td>
                             </tr>
                         }
