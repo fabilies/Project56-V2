@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Project56_new.Migrations
 {
-    public partial class startup : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,7 +44,13 @@ namespace Project56_new.Migrations
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     a_adres = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     a_city = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    a_zipcode = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    a_number = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    a_zipcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    dt_birth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    firstname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    lastname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    middlename = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -73,6 +79,7 @@ namespace Project56_new.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsSales = table.Column<int>(type: "int", nullable: false),
                     category_id = table.Column<int>(type: "int", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     dt_created = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -155,6 +162,36 @@ namespace Project56_new.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrdStatus", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WishLines",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Wishmain_id = table.Column<int>(type: "int", nullable: false),
+                    dt_created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    itm_id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WishLines", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WishMains",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    dt_created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    dt_modified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    user_ad = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WishMains", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -337,6 +374,12 @@ namespace Project56_new.Migrations
 
             migrationBuilder.DropTable(
                 name: "OrdStatus");
+
+            migrationBuilder.DropTable(
+                name: "WishLines");
+
+            migrationBuilder.DropTable(
+                name: "WishMains");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

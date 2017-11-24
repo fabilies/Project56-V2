@@ -7,7 +7,11 @@
 <h2>Verlanglijst:</h2>
 
 <table class="table">
-@foreach (var item in Model) {
+
+@if (ViewBag.model_for_view != null){
+    @foreach (var item in Model)
+    {
+    
         <tr>
             <td>
                 <h4>@Html.DisplayFor(modelItem => item.description)</h4>
@@ -17,21 +21,27 @@
                 <h4>@Html.DisplayFor(modelItem => item.long_description)</h4>
             </td>
             <td>
-                <img src="~/images/products/@Html.DisplayFor(modelItem => item.photo_url)" style="width:100px;height:100px;"/>
+                <img src="~/images/products/@Html.DisplayFor(modelItem => item.photo_url)" style="width:100px;height:100px;" />
             </td>
             <td>
 
                 @Html.ActionLink("Toevoegen aan winkelmand", "SaveItmInShoppingCart", "ShoppingCart",
-                      routeValues: new
-                      {
-                          itm_id = item.id
-                      },
-                        htmlAttributes: new { @class = "btn btn-success btn-large disabled" })
+                       routeValues: new
+                       {
+                           itm_id = item.id
+                       },
+                         htmlAttributes: new { @class = "btn btn-success btn-large disabled" })
 
-                <a class="btn btn-danger" href='@Url.Action("DeleteFromWishList","WishList", new { ordline_id  = item.ordline_id })'>Verwijderen</a>
+                <a class="btn btn-danger" href='@Url.Action("DeleteFromWishList", "WishList", new { ordline_id = item.ordline_id })'>Verwijderen</a>
                 @ViewBag.ErrorMessage
             </td>
         </tr>
+        }
+
 }
-    </tbody>
+else
+{
+    <h1>Nog geen artikelen gevonden</h1>
+}
+
 </table>

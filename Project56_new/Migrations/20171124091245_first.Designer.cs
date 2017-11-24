@@ -11,8 +11,8 @@ using System;
 namespace Project56_new.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171121094420_shahraiz_chaudry")]
-    partial class shahraiz_chaudry
+    [Migration("20171124091245_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -326,6 +326,38 @@ namespace Project56_new.Migrations
                     b.HasKey("id");
 
                     b.ToTable("OrdStatus");
+                });
+
+            modelBuilder.Entity("Project56_new.Models.WishLines", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Wishmain_id");
+
+                    b.Property<DateTime>("dt_created");
+
+                    b.Property<int>("itm_id");
+
+                    b.HasKey("id");
+
+                    b.ToTable("WishLines");
+                });
+
+            modelBuilder.Entity("Project56_new.Models.WishMains", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("dt_created");
+
+                    b.Property<DateTime>("dt_modified");
+
+                    b.Property<string>("user_ad");
+
+                    b.HasKey("id");
+
+                    b.ToTable("WishMains");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

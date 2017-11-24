@@ -327,6 +327,38 @@ namespace Project56_new.Migrations
                     b.ToTable("OrdStatus");
                 });
 
+            modelBuilder.Entity("Project56_new.Models.WishLines", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Wishmain_id");
+
+                    b.Property<DateTime>("dt_created");
+
+                    b.Property<int>("itm_id");
+
+                    b.HasKey("id");
+
+                    b.ToTable("WishLines");
+                });
+
+            modelBuilder.Entity("Project56_new.Models.WishMains", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("dt_created");
+
+                    b.Property<DateTime>("dt_modified");
+
+                    b.Property<string>("user_ad");
+
+                    b.HasKey("id");
+
+                    b.ToTable("WishMains");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")

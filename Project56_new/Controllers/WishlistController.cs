@@ -18,110 +18,85 @@ namespace Project56_new.Controllers
         {
             _context = context;
         }
-
-        // GET: Wishlist
-        [HttpGet]
-        [HttpGet]
-        public IActionResult Index()
+        public int CheckIfWishlistExist()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var WishMain = _context.WishMains.Where(w => w.user_ad == userId && w.ordstatus_id == 3).FirstOrDefault();
-            var WishLines = _context.WishLines.Where(l => l.ord_id == WishMain.id).ToList();
-            if (WishLines.Count() > 0)
+            var WishMain = _context.WishMains.Where(w => w.user_ad == userId).FirstOrDefault();
+            if (WishMain != null)
             {
-                var WishlistItems = from wishlines in _context.WishLines
-                                        join itms in _context.Itms on wishlines.itm_id equals itms.id
-                                        join wishmain in _context.WishMains on wishlines.ord_id equals wishmain.id
-                                        where wishlines.ord_id == WishMain.id
-                                        select new WishlistModel
-                                        {
-                                            description = itms.description,
-                                            price = itms.price,
-                                            qty = wishlines.qty,
-                                            ordline_id = wishlines.id,
-                                            subtotal = wishlines.qty * itms.price,
-                                            photo_url = itms.photo_url
-                                        };
-                return View(WishlistItems.ToList());
+                return WishMain.id;
             }
+            else
+            {
+                return 0;
+            }
+        }
+        // GET: Wishlist
+        [HttpGet]
+        public IActionResult Index()
+        {
+            IQueryable<WishlistModel> model = null;
+            int wishlist_id = CheckIfWishlistExist();
+
+            if (wishlist_id != 0)
+            {
+                var WishLines = _context.WishLines.Where(l => l.Wishmain_id == wishlist_id).ToList();
+                if (WishLines.Count() > 0)
+                {
+                    model = from wishlines in _context.WishLines
+                            join itms in _context.Itms on wishlines.itm_id equals itms.id
+                            join wishmain in _context.WishMains on wishlines.Wishmain_id equals wishmain.id
+                            where wishlines.Wishmain_id == wishlist_id
+                            select new WishlistModel
+                            {
+                                description = itms.description,
+                                price = itms.price,
+                                ordline_id = wishlines.id,
+                                photo_url = itms.photo_url,
+                                itm_id = itms.id
+                            };
+                    ViewBag.model_for_view = model;
+                    return View(model.ToList());
+                }
+            }
+            ViewBag.model_for_view = model;
             return View();
-
-
-
-
         }
         public async Task<ActionResult> addWishList(int itm_id)
         {
-            int Lorder_id;
+            int LRec_id;
 
             // get the logged-in user id
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var orders = _context.WishMains.Where(w => w.user_ad == userId && w.ordstatus_id == 3).FirstOrDefault();
-            if (orders != null)
+            var wishmain = _context.WishMains.Where(w => w.user_ad == userId).FirstOrDefault();
+            if (wishmain != null)
             {
                 // record found 
-                Lorder_id = orders.id;
+                LRec_id = wishmain.id;
             }
             else
             {
                 // no record yet
-                WishMains ord = new WishMains();
-                ord.user_ad = userId;
-                ord.l_show = 1;
-                ord.ordstatus_id = 3;
-                ord.dt_created = DateTime.Now;
-                _context.Add(ord);
+                WishMains wish = new WishMains();
+                wish.user_ad = userId;
+                wish.dt_created = DateTime.Now;
+                _context.Add(wish);
                 await _context.SaveChangesAsync();
 
-                Lorder_id = ord.id;
+                LRec_id = wish.id;
             }
-
-
-            var CheckItmId = _context.WishLines.Where(i => i.itm_id == itm_id && i.ord_id == Lorder_id).FirstOrDefault();
-            // item exist
-            if (CheckItmId != null)
-            {
-                CheckItmId.qty = CheckItmId.qty + 1;
-                _context.Update(CheckItmId);
+           
+                // Create new wishline
+                WishLines wline = new WishLines();
+                wline.itm_id = itm_id;
+               wline.Wishmain_id = LRec_id;
+                wline.dt_created = DateTime.Now;
+                _context.Add(wline);
                 await _context.SaveChangesAsync();
-            }
-            else
-            {
-                // Create new orderline
-                WishLines oline = new WishLines();
-                oline.itm_id = itm_id;
-                oline.l_show = 1;
-                oline.ord_id = Lorder_id;
-                oline.dt_created = DateTime.Now;
-                oline.qty = 1;
-                _context.Add(oline);
+          return RedirectToAction(nameof(Index));
 
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToAction(nameof(Index));
-            //return View(await _context.WishlistModel.ToListAsync());
-        }
-
-
-        // GET: Wishlist/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var wishlistModel = await _context.WishlistModel
-                .SingleOrDefaultAsync(m => m.id == id);
-            if (wishlistModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(wishlistModel);
         }
 
         public async Task<ActionResult> DeleteFromWishList(int ordline_id)
