@@ -389,3 +389,27 @@ i.fa.fa-star:hover {
     color: #ff950d;
     float: right;
 }
+
+/* Product slider css*/
+#myCarousel {
+    min-height: 500px;
+}
+
+.carousel-inner {
+    min-height: 500px;
+}
+
+a.left.carousel-control, a.right.carousel-control {
+    width: 20px;
+    color: black;
+    background-image: none;
+    min-height: 500px;
+}
+
+a.left.carousel-control {
+    left: -20px;
+}
+
+a.right.carousel-control {
+    
+}
