@@ -51,19 +51,37 @@
 
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
-                                <div class="item active">
+                               @{ 
+                                   int page_number =0;
+                                   bool nextRow = false;
+                                   if (nextRow)
+                                   {
+
+                                <div class="item" id="item_@page_number">
+                                    <h2>Test</h2>
+                                    sadsadf
+                                </div>
+                                   }
+                                <div class="item active" id="item_@page_number">
                                     
-                                    @{int countItms = 0;}
+                                    @{int countItms = 0;
+                                       
+                                        int page_index = 0;
+
+                                    }
                                     
                                     @foreach (var item in Model)
                                     {
-                                        @if (countItms <= 7)
+                                        @if (countItms == 3)
                                         {
-                                       
+                                            nextRow = true;
+                                            page_number = page_number + 1;                      
+
+                                        }
                                         if (item.IsSales == 1)
                                         {
                                             <!-- START SALE PRODUCT-->
-                                            <div class="col-xs-10 col-sm-3 col-md-3 col-lg-3 sale-item">
+                                            <div class="col-xs-10 col-sm-3 col-md-3 col-lg-3 sale-item" id="col_@page_number">
                                                 <span class="sale">Sale!</span>
                                                 <div class="sale-img-outer">
                                                     @if (item.itm_quantity == 0)
@@ -93,23 +111,18 @@
                                                 @if (item.itm_quantity != 0)
                                                 {
                                                     @Html.ActionLink("Toevoegen aan winkelmand", "SaveItmInShoppingCart", "ShoppingCart",
-                                                                                                   routeValues: new
-                                                                                                   {
-                                                                                                       itm_id = item.id
-                                                                                                   },
-                                                                                                   htmlAttributes: new { @class = "btn btn-success btn-large" })
+routeValues: new
+{
+    itm_id = item.id
+},
+htmlAttributes: new { @class = "btn btn-success btn-large" })
                                                 }
                                                 else
                                                 {
                                                     <p><a class="btn btn-info" href="home/contact">Contact &raquo;</a></p>
                                                 }
 
-                                                @Html.ActionLink("Toevoegen aan verlanglijst", "addWishList", "Wishlist",
-                                                                                           routeValues: new
-                                                                                           {
-                                                                                               itm_id = item.id
-                                                                                           },
-                                                                                           htmlAttributes: new { @class = "fa fa-star" })
+                                               
 
                                                 <a href="@Url.Action("addWishList", "WishList", new { itm_id = item.id })">
                                                     <i class="fa fa-star"></i>
@@ -118,12 +131,10 @@
                                             </div>
                                             <!-- END SALE PRODUCT-->
                                         }
-                                        
-
-                                        
-                                        if (item.IsSales == -1) {
+                                        if (item.IsSales == -1)
+                                        {
                                         <!-- START REGULAR PRODUCT-->
-                                            <div class="col-xs-10 col-sm-3 col-md-3 col-lg-3 sale-item">
+                                            <div class="col-xs-10 col-sm-3 col-md-3 col-lg-3 sale-item" id="col_@page_number">
                                                 <span class="sale">HOT!</span>
                                                 <div class="sale-img-outer">
                                                     @if (item.itm_quantity == 0)
@@ -153,61 +164,60 @@
                                                 @if (item.itm_quantity != 0)
                                                 {
                                                     @Html.ActionLink("Toevoegen aan winkelmand", "SaveItmInShoppingCart", "ShoppingCart",
-                                                                                          routeValues: new
-                                                                                          {
-                                                                                              itm_id = item.id
-                                                                                          },
-                                                                                          htmlAttributes: new { @class = "btn btn-success btn-large" })
+routeValues: new
+{
+    itm_id = item.id
+},
+htmlAttributes: new { @class = "btn btn-success btn-large" })
                                                 }
                                                 else
                                                 {
                                                     <p><a class="btn btn-info" href="home/contact">Contact &raquo;</a></p>
                                                 }
 
-                                                @Html.ActionLink("Toevoegen aan verlanglijst", "addWishList", "Wishlist",
-                                                                                  routeValues: new
-                                                                                  {
-                                                                                      itm_id = item.id
-                                                                                  },
-                                                                                  htmlAttributes: new { @class = "fa fa-star" })
-
+                                                @if (item.itm_quantity != 0)
+                                                {
                                                 <a href="@Url.Action("addWishList", "WishList", new { itm_id = item.id })">
                                                     <i class="fa fa-star"></i>
                                                 </a>
+                                                }
 
                                             </div>
-                                            <!-- END REGULAR PRODUCT-->
+
+                                            page_number = page_number + 1;
                                         }
 
+                                        if (page_index == 3)
+                                        {
+                                        <!-- Left and right controls -->
+                                            <a class="left carousel-control" href="#myCarousel" data-slide="prev" onclick="SliderPagination(@page_number , 'prev')">
+                                                <span class="glyphicon glyphicon-chevron-left" id="nextrow"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="right carousel-control" href="#myCarousel" data-slide="next" onclick="SliderPagination(@page_number , 'next')">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
 
+                                            page_index = 0;
+                                        }
+                                        page_index++;
 
-                                      }
-                                        countItms++;
                                     }
                                     <div class="col-md-12">total:<span>@countItms</span></div>
+                                    <div id="page_index + @page_number"></div>
                                 </div>
-                                
-                                
+                              
+                                  
 
-                                @if (countItms > 3 && countItms <= 7)
-                                {
-                                    <div class="item">
-                                        <h2>Test</h2>
-                                        sadsadf
-                                    </div>
 
-                                }
+                                   
+
+                            }
+                                 
                             </div>
 
-                            <!-- Left and right controls -->
-                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
+                           
                         </div>
 
    
