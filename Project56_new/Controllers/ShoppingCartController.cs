@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Project56_new.Data;
 using System.Security.Claims;
 using Project56_new.Models;
-
+using System.Net.Mail;
+using System.Net;
 
 namespace Project56_new.Controllers
 {
@@ -69,6 +70,9 @@ namespace Project56_new.Controllers
         public async Task<IActionResult> Index()
         {
             IQueryable<ShoppingCartModel> model = null;
+            // get the logged-in user id
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = _context.ApplicationUser.Where(u => u.Id == userId).FirstOrDefault();
 
             int order_id = CheckIfOrderExist();
             if (order_id != 0)
@@ -91,9 +95,15 @@ namespace Project56_new.Controllers
 
                         };
                 ViewBag.model_for_view = model;
+                ViewBag.email = result.Email;
+                ViewBag.a_adres = result.a_adres;
+                ViewBag.a_city = result.a_city;
+                ViewBag.a_number = result.a_number;
+                ViewBag.a_zipcode = result.a_zipcode;
                 return View(model.ToList());
             }
             ViewBag.model_for_view = model;
+            
             return View();
 
         }
@@ -151,10 +161,28 @@ namespace Project56_new.Controllers
        
         }
         [HttpPost]
-        public ActionResult ConfirmOrder()
+        public IActionResult UpdateQtyInShoppingCart( int ordline_id , int qty)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var orders = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
+
+            var ListOfItems = _context.OrdLines.Where(o => o.ord_id == orders.id && o.id == ordline_id).FirstOrDefault(); ;
+
+            ListOfItems.qty = qty;
+
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+
+        }
+      
+        [HttpPost]
+        public IActionResult ConfirmOrder()
         {
             // get the logged-in user id
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = _context.ApplicationUser.Where(u => u.Id == userId).FirstOrDefault();
+
             var orders = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
 
             var ListOfItems = _context.OrdLines.Where(o => o.ord_id == orders.id);
@@ -166,8 +194,22 @@ namespace Project56_new.Controllers
             _context.Update(orders);
 
             _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
 
+            // send mail
+            SmtpClient client = new SmtpClient("uxilo.com");
+           // client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential("webshop@uxilo.com", "webshop12345");
+            client.Port = 587;
+
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress("no-reply@webshop.com");
+            mailMessage.To.Add(result.Email);
+            mailMessage.Body = "Bedankt voor het bestellen bij onze webshop.";
+            mailMessage.Subject = "Order " + orders.id;
+            client.Send(mailMessage);
+
+            return RedirectToAction("index", "Home");
+        
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

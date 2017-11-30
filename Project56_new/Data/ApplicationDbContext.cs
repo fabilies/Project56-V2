@@ -33,7 +33,8 @@ namespace Project56_new.Data
         public DbSet<Project56_new.Models.OrdStatus> OrdStatus { get; set; }
         public DbSet<Project56_new.Models.WishMains> WishMains { get; set; }
         public DbSet<Project56_new.Models.WishLines> WishLines { get; set; }
-       // public DbSet<Project56_new.Models.WishlistModel> WishlistModel { get; set; }
+        public DbSet<Project56_new.Models.ApplicationUser> ApplicationUser { get; set; }
+        // public DbSet<Project56_new.Models.WishlistModel> WishlistModel { get; set; }
 
     }
 }

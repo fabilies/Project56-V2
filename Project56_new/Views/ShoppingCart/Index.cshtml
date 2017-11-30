@@ -5,7 +5,7 @@
         <h2>Jouw winkelwagen</h2>
 
         <div class="container">
-            <form  method="post" >
+            <form  method="post" id="form-ShoppingCart">
               <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <table id="cart" class="table table-hover table-condensed">
                     <thead>
@@ -19,7 +19,6 @@
                     </thead>
                     <tbody>
                     @if (ViewBag.model_for_view != null)
-
                     {
                         @for (int i = 0; i < Model.Count(); i++)
                         {
@@ -34,21 +33,22 @@
                                     </div>
                                 </td>
                                
-                                <td data-th="Price">@Html.DisplayFor(model => model[i].price)</td>
+                                <td data-th="Price" >@Html.DisplayFor(model => model[i].price) </td>
+                               
                                 <td data-th="Quantity">
-                                    <input asp-for="@Model[i].qty" type="number" min="0" max="@Html.DisplayFor(model => model[i].stock)" class="form-control" value="@Html.DisplayFor(model => model[i].qty  )">
+                                    <input asp-for="@Model[i].qty" type="number" min="0" max="@Html.DisplayFor(model => model[i].stock)" id="_data_qty_@Model[i].ordline_id"  onchange="UpdateQtyOrder(@Model[i].ordline_id , this.value)"class="form-control" value="@Model[i].qty">
                                   @Html.HiddenFor(x => Model[i].ordline_id)
                                   @Html.HiddenFor(x => Model[i].ord_ad)
-                                    @Html.HiddenFor(x => Model[i].itm_id)
+                                  @Html.HiddenFor(x => Model[i].itm_id)
                                 </td>
-                                <td data-th="Subtotal" class="text-center">@Model.Sum(itm => itm.subtotal) </td>
+                                <td data-th="Subtotal" class="text-center"><span  id="_data_subtotal_@Model[i].ordline_id"> $  @{var total = (@Model[i].price * @Model[i].qty); } @{ @total }  </span></td>
                                 <td class="actions" data-th="">
                                 <td>
                                     <a href='@Url.Action("DeleteItmFromShoppingCart", "ShoppingCart", new { ordline_id = Model[i].ordline_id })' class="btn btn-danger btn-block" >Verwijderen</a>
                                 </td>
                             </tr>
-                        }
-                    }
+                         }
+                     }
                     </tbody>
                     <tfoot>
                         <tr class="visible-xs">
@@ -58,13 +58,49 @@
                             <td colspan="2" class="hidden-xs"></td>
                             @if (ViewBag.model_for_view != null)
                             {
-                                <td class="hidden-xs text-center"><strong>@Model.Sum(itm => itm.subtotal)</strong></td>
+
+                                <td class="hidden-xs text-center"><strong><span id="result_sub_total">Totaal $@Model.Sum(itm => itm.subtotal)</span></strong></td>
                             }
                             <td></td>
-                            <td><button type="submit"  class="btn btn-success btn-block">Bevestig order</button></td>                      
-                        </tr>
+                            @{
+                                @if (ViewBag.model_for_view != null)
+                                {
 
+                                    @if (ViewBag.email == null || ViewBag.email == "")
+                                    {
+                                        <td>
+                                            <span style="color:red;">
+                                                Email is leeg, u kunt pas verder gaan als u dit heeft aangepast.<br />
+                                                Klik <a href="@Url.Action("Index", "Manage")">hier</a> om dit aan te passen
+                                            </span>
+                                        </td>
+
+                                    }
+                                    else if (ViewBag.a_adres == "" || ViewBag.a_adres == null ||
+                                     ViewBag.a_city == "" || ViewBag.a_city == null ||
+                                     ViewBag.a_number == "" || ViewBag.a_number == null ||
+                                     ViewBag.a_zipcode == "" || ViewBag.a_zipcode == null)
+                                    {
+
+                                        <td>
+                                            <span style="color:red;">
+                                                Adresgegevens zijn niet bekend, u kunt pas verder gaan als u dit heeft ingevoerd.<br />
+                                                Klik <a href="@Url.Action("Index", "Manage")">hier</a> om dit aan te passen
+                                            </span>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td><button type="submit" class="btn btn-success btn-block">Bevestig order</button></td>
+
+                                    }
+
+
+                                }
+                            }
+                        </tr>
                     </tfoot>
                 </table>
             </form>
+           
     </div>
