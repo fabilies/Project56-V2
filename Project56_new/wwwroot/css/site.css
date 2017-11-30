@@ -380,8 +380,9 @@ li.divider-vertical {
 
 i.fa.fa-star {
     font-size: 3em;
-    color: #b9b9b9;
+    color: #ecff5a;
     float: right;
+    text-shadow: 1px 1.5px 1px #000;
 }
 
 i.fa.fa-star:hover {
@@ -412,4 +413,8 @@ a.left.carousel-control {
 
 a.right.carousel-control {
     
+}
+
+.space {
+    padding: 20px;
 }
