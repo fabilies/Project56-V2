@@ -380,12 +380,41 @@ li.divider-vertical {
 
 i.fa.fa-star {
     font-size: 3em;
-    color: #b9b9b9;
+    color: #ecff5a;
     float: right;
+    text-shadow: 1px 1.5px 1px #000;
 }
 
 i.fa.fa-star:hover {
     font-size: 3em;
     color: #ff950d;
     float: right;
+}
+
+/* Product slider css*/
+#myCarousel {
+    min-height: 500px;
+}
+
+.carousel-inner {
+    min-height: 500px;
+}
+
+a.left.carousel-control, a.right.carousel-control {
+    width: 20px;
+    color: black;
+    background-image: none;
+    min-height: 500px;
+}
+
+a.left.carousel-control {
+    left: -20px;
+}
+
+a.right.carousel-control {
+    
+}
+
+.space {
+    padding: 20px;
 }
