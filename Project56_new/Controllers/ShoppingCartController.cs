@@ -175,7 +175,31 @@ namespace Project56_new.Controllers
             return RedirectToAction(nameof(Index));
 
         }
-      
+        public void CreateOrderHistoryRecord(OrdMains m )
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            OrdHistory h = new OrdHistory();
+            var result = (from ordline in _context.OrdLines
+                          join itm in _context.Itms on ordline.itm_id equals itm.id
+                          select new OrdHistory
+                          {
+                              itm_description = itm.description,
+                              ord_id = ordline.ord_id,
+                              ordline_id = ordline.id,
+                              priced_payed = itm.price,
+                              qty_bought = ordline.qty,
+                              dt_created = DateTime.Now,
+                              user_ad = userId
+
+                          }).ToList();
+
+          foreach(var r in result)
+            {
+
+                _context.Add(r);
+                _context.SaveChanges();
+            }
+        }
         [HttpPost]
         public IActionResult ConfirmOrder()
         {
@@ -184,16 +208,21 @@ namespace Project56_new.Controllers
             var result = _context.ApplicationUser.Where(u => u.Id == userId).FirstOrDefault();
 
             var orders = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
-
             var ListOfItems = _context.OrdLines.Where(o => o.ord_id == orders.id);
+           
             foreach (var l in ListOfItems)
             {
                 DecreaseStock(l.itm_id, l.qty);
+                
             }
             orders.ordstatus_id = 5;
             _context.Update(orders);
 
             _context.SaveChanges();
+
+            
+            // Create order history record
+            CreateOrderHistoryRecord(orders);
 
             // send mail
             SmtpClient client = new SmtpClient("uxilo.com");

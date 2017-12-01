@@ -8,6 +8,7 @@
     <li class="@ManageNavPages.IndexNavClass(ViewContext)"><a asp-action="Index">Mijn profiel</a></li>
     <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext)"><a asp-action="ChangePassword">Wachtwoord opnieuw instellen</a></li>
     <li class="@ManageNavPages.ChangeAdresNavClass(ViewContext)"><a asp-action="ChangeAdres">Mijn adres gegevens</a></li>
+    <li class="@ManageNavPages.MyOrdersNavClass(ViewContext)"><a asp-action="MyOrders">Mijn orders</a></li>
     @if (hasExternalLogins)
     {
         <li class="@ManageNavPages.ExternalLoginsNavClass(ViewContext)"><a asp-action="ExternalLogins">External logins</a></li>

@@ -17,6 +17,8 @@ namespace Project56_new.Views.Manage
 
         public static string ChangeAdres => "ChangeAdres";
 
+        public static string MyOrders => "MyOrders";
+
         public static string ExternalLogins => "ExternalLogins";
 
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
@@ -27,6 +29,7 @@ namespace Project56_new.Views.Manage
 
         public static string ChangePasswordNavClass(ViewContext viewContext) => PageNavClass(viewContext, ChangePassword);
 
+        public static string MyOrdersNavClass(ViewContext viewContext) => PageNavClass(viewContext, MyOrders);
         public static string ExternalLoginsNavClass(ViewContext viewContext) => PageNavClass(viewContext, ExternalLogins);
 
         public static string TwoFactorAuthenticationNavClass(ViewContext viewContext) => PageNavClass(viewContext, TwoFactorAuthentication);

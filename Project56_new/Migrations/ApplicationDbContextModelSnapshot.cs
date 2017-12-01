@@ -250,13 +250,19 @@ namespace Project56_new.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("description");
-
                     b.Property<DateTime>("dt_created");
 
-                    b.Property<DateTime>("dt_modified");
+                    b.Property<string>("itm_description");
 
-                    b.Property<int>("l_show");
+                    b.Property<int>("ord_id");
+
+                    b.Property<int>("ordline_id");
+
+                    b.Property<float>("priced_payed");
+
+                    b.Property<int>("qty_bought");
+
+                    b.Property<string>("user_ad");
 
                     b.HasKey("id");
 

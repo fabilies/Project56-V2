@@ -1,0 +1,58 @@
+﻿@model List<Project56_new.Models.OrdHistory>
+
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    Order NR
+                </th>
+                <th>
+                    Artikel
+                </th>
+                <th>
+                    Prijs per stuk
+                </th>
+                <th>
+                   Aantal gekocht
+                </th>
+                <th>
+                   Datum aangemaakt
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+    int i = 0;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ord_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.itm_description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.priced_payed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.qty_bought)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dt_created)
+            </td>
+        </tr>
+
+    int current = Model[i].ord_id;
+    int next = Model[i + 1].ord_id;
+
+    if (current != next)
+    {
+
+        <tr><td>Niewe order </td></tr>
+    }
+
+    i++;
+}
+    </tbody>
+</table>

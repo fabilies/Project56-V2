@@ -14,6 +14,7 @@ using Project56_new.Models;
 using Project56_new.Models.ManageViewModels;
 using Project56_new.Services;
 using Project56_new.Data;
+using System.Security.Claims;
 
 namespace Project56_new.Controllers
 {
@@ -171,7 +172,28 @@ namespace Project56_new.Controllers
 
             return RedirectToAction(nameof(ChangeAdres));
         }
+        [HttpGet]
+        public async Task<IActionResult> MyOrders()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            var result = (from history in _context.OrdHistory
+                          join order in _context.OrdMains on history.ord_id equals order.id
+                          join orderline in _context.OrdLines on history.ordline_id equals orderline.id
+                          join itm in _context.Itms on orderline.itm_id equals itm.id
+                          where history.user_ad == userId
+
+                          select  new OrdHistory
+                          {
+                             ord_id = order.id,
+                             priced_payed = history.priced_payed,
+                             qty_bought = orderline.qty,
+                             itm_description = itm.description,
+                             dt_created = history.dt_created
+                          });
+
+            return View(result.ToList());
+        }
         [HttpGet]
         public async Task<IActionResult> ChangeAdres()
         {
