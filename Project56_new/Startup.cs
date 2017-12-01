@@ -36,6 +36,27 @@ namespace Project56_new
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+
+            // TODO / FIXME : Authentication only works when using a specific port due to security reasons
+            // We need to find a way to permanently set out port for Visual Studio.
+
+            // Desc. : These third-party plugin are used to login in the webshop they use the API of
+            // the respective owners. It's settings are managed on their platforms.
+
+            //--- THIRD PARTY LOGINS
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = "1022632011253-aesspjfmkrrq2qn6imufvorvghn7gf95.apps.googleusercontent.com";
+                googleOptions.ClientSecret = "fVm6NpWklMJUl5P7AhrDBuno";
+            });
+
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = "1765693160391788";
+                facebookOptions.AppSecret = "cf7e38a816b39fee6965e3da54bd95bb";
+            });
+            //--- END THIRD PARTY LOGINS
+
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
