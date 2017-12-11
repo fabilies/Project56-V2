@@ -48,7 +48,7 @@
                                 <li role="separator" class="divider"></li>
                                 <li><a asp-area="" asp-controller="Users" asp-action="Index"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li class="disabled"><a asp-area="" asp-controller="" asp-action=""><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span> Statistieken</a></li>
+                                <li><a asp-area="" asp-controller="Statistics" asp-action="Index"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span> Statistieken</a></li>
                             </ul>
                         </li>
                     }
@@ -85,6 +85,8 @@
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="http://modernizr.com/downloads/modernizr-latest.js"></script>
+        <script src="~/js/jqxchart.js"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)

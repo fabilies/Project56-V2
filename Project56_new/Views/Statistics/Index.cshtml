@@ -1,0 +1,43 @@
+﻿
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.min.js"></script>
+    <script>
+
+        var PieChartData =
+            {
+                labels: ["Aantal producten in webshop", "Totale omzet" , "Aantal orders"],
+                datasets: [{
+                    label: 'Statistieken',
+                    backgroundColor: [
+                        "#f990a7",
+                        "#aad2ed",
+                        "#9966FF",
+                        "#99e5e5",
+                        "#f7bd83",
+                    ],
+                    borderWidth: 2,
+                    data: [@ViewBag.amount_products , @ViewBag.total_money ,  @ViewBag.total_orders]
+                }]
+            };
+
+            window.onload = function () {
+                var ctx1 = document.getElementById("Piecanvas").getContext("2d");
+                window.myBar = new Chart(ctx1,
+                    {
+                        type: 'pie',
+                        data: PieChartData,
+                        options:
+                            {
+                                title:
+                                {
+                                    display: true,
+                                    text: "Statistieken"
+                                },
+                                responsive: true,
+                                maintainAspectRatio: true
+                            }
+                    });
+            }
+    </script>
+    <div style="text-align: center">
+        <canvas id="Piecanvas"></canvas>
+    </div>
