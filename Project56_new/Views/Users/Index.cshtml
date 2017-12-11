@@ -9,7 +9,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th width="400px">
                 @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
@@ -25,7 +25,6 @@
             </td>
             <td>    
                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Wijzigen</a>
-                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Meer info</a>
                 @if (item.UserName == "admin@admin.nl")
                 {
                     //<span style="color:red;"> Admin user mag niet verwijderd worden!</span>

@@ -134,23 +134,22 @@ htmlAttributes: new { @class = "btn btn-success btn-large" })
                                         if (item.IsSales == -1)
                                         {
                                         <!-- START REGULAR PRODUCT-->
-                                            <div class="col-xs-10 col-sm-3 col-md-3 col-lg-3 sale-item" id="col_@page_number">
-                                                <span class="sale">HOT!</span>
-                                                <div class="sale-img-outer">
+                                            <div class="col-xs-10 col-sm-3 col-md-3 col-lg-3 normal-item" id="col_@page_number">
+                                                <div class="normal-img-outer">
                                                     @if (item.itm_quantity == 0)
                                                     {
-                                                        <img class="sale-img-inner" src="~/images/products/out-of-stock.png">
+                                                        <img class="normal-img-inner" src="~/images/products/out-of-stock.png">
                                                     }
                                                     else
                                                     {
-                                                        <img class="sale-img-inner" src="~/images/products/@Html.DisplayFor(modelItem => item.photo_url)">
+                                                        <img class="normal-img-inner" src="~/images/products/@Html.DisplayFor(modelItem => item.photo_url)">
                                                     }
                                                 </div>
-                                                <div class="sale-specs">
-                                                    <div class="sale-title"><h3>@Html.DisplayFor(modelItem => item.description)</h3></div>
-                                                    <div class="sale-price"><h3>&euro; @Html.DisplayFor(modelItem => item.price)-</h3></div>
+                                                <div class="normal-specs">
+                                                    <div class="normal-title"><h3>@Html.DisplayFor(modelItem => item.description)</h3></div>
+                                                    <div class="normal-price"><h3>&euro; @Html.DisplayFor(modelItem => item.price)-</h3></div>
                                                 </div>
-                                                <div class="sale-description">
+                                                <div class="normal-description">
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             @Html.DisplayFor(modelItem => item.long_description)

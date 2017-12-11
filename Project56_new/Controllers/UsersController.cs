@@ -8,16 +8,33 @@ using Microsoft.EntityFrameworkCore;
 using Project56_new.Data;
 using Project56_new.Models;
 using Microsoft.AspNetCore.Authorization;
+using Project56_new.Models.AccountViewModels;
+using Microsoft.AspNetCore.Identity;
+using Project56_new.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Project56_new.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IEmailSender _emailSender;
+        private readonly ILogger _logger;
         private readonly ApplicationDbContext _context;
 
-        public UsersController(ApplicationDbContext context)
+        public UsersController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            IEmailSender emailSender,
+            ILogger<AccountController> logger,
+            ApplicationDbContext context)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _emailSender = emailSender;
+            _logger = logger;
             _context = context;
         }
 
@@ -46,26 +63,73 @@ namespace Project56_new.Controllers
         }
 
         // GET: Users/Create
-        public IActionResult Create()
+        public IActionResult Create(string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // User account aanmaken via beheer asah
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PasswordHash,a_zipcode,a_adres,a_city,a_number,firstname,middlename,lastname,dt_birth,gender,Id,UserName,Email,PhoneNumber,")] ApplicationUser applicationUser)
+        public async Task<IActionResult> Create(RegisterViewModel model, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                _context.Add(applicationUser);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var user = new ApplicationUser { UserName = model.Email,
+                                                 Email = model.Email,
+                                                 firstname = model.Firstname,
+                                                 middlename = model.Middlename,
+                                                 lastname = model.Lastname,
+                                                 dt_birth = model.Dt_birth,
+                                                 gender = model.Gender,
+                                                 a_zipcode = model.Zipcode,
+                                                 a_adres = model.Adress,
+                                                 a_city = model.City,
+                                                 a_number = model.Homenumber,
+                                                 PhoneNumber = model.Phonenumber};
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User created a new account with password.");
+
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+
+                    return RedirectToLocal("/Users");
+                }
+                AddErrors(result);
             }
-            return View(applicationUser);
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
+
+        #region Helpers
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+        }
+
+        #endregion
 
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(string id)
