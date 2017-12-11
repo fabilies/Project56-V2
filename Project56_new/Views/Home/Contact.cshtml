@@ -1,29 +1,34 @@
-﻿@{
+﻿@model Project56_new.Models.ContactModel
+@{
     ViewData["Title"] = "Contact";
 }
 
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <div class="form-area">
-                <form role="form">
-                    <h2 style="margin-bottom: 15px;">Contact</h2>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Naam" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Onderwerp" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" type="textarea" id="message" placeholder="Bericht" maxlength="140" rows="7"></textarea>
-                    </div>
+                <div class="form-area">
+                    <form method="post">
+                        <h2 style="margin-bottom: 15px;">Contact</h2>
+                        <div class="form-group">
+                            <input type="text" class="form-control" asp-for="naam" placeholder="Naam" required>
+                            <span asp-validation-for="naam"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" asp-for="email" placeholder="Email" required>
+                            <span asp-validation-for="email"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" asp-for="onderwerp" placeholder="Onderwerp" required>
+                            <span asp-validation-for="onderwerp"></span>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="textarea"  asp-for="bericht" placeholder="Bericht" maxlength="140" rows="7"></textarea>
+                            <span asp-validation-for="bericht"></span>
+                        </div>
 
-                    <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Verstuur</button>
-                </form>
-            </div>
+                        <button type="submit" id="submit" name="submit" class="btn btn-success pull-right">Verstuur</button>
+                    </form>
+                </div>
         </div>
         <div class="col-md-6">
             <h2 style="margin-bottom: 15px;">Gegevens</h2>
@@ -42,5 +47,14 @@
 
 
     </div>
+    @if (ViewBag.Message != null)
+            {
+        <div class="row">
+            <div class="col-md-12 mail-success">
+                <span>@ViewBag.Message</span>
+            </div>
+        </div>
+
+    }
 
 </div>

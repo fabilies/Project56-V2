@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Project56_new.Models;
 using Project56_new.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Mail;
+using System.Text;
 
 namespace Project56_new.Controllers
 {
@@ -81,9 +83,48 @@ namespace Project56_new.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Contact(ContactModel c)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    MailMessage sentMail = new MailMessage();
+                    // TODO Fix HTML weergave
+                    sentMail.Body = " Naam: " + c.naam +
+                                    " Van: " + c.email +
+                                    " Onderwerp: " + c.onderwerp +
+                                    " Bericht: " + c.bericht;
+                    sentMail.From = new MailAddress(c.email);
+                    sentMail.To.Add("bdhstudiowebshop@gmail.com");
+                    sentMail.Subject = c.onderwerp;
+
+                    SmtpClient smtp = new SmtpClient();
+
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.Credentials = new System.Net.NetworkCredential
+                    ("bdhstudiowebshop@gmail.com", "Test@1234567!");
+
+                    smtp.EnableSsl = true;
+                    smtp.Send(sentMail);
+
+                    ModelState.Clear();
+                    ViewBag.Message = "Bedankt voor uw bericht, wij nemen zo spoedig mogelijk contact met u op! ";
+                }
+                catch (Exception err)
+                {
+                    ModelState.Clear();
+                    ViewBag.Message = $"Er is een fout opgetreden {err.Message}";
+                }
+            }
 
             return View();
         }
