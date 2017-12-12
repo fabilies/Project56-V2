@@ -28,8 +28,6 @@
 *.dll
 *.pdb
 *.json
-*.cs
-*.json
 *.config
 *.ide
 .vs/Project56_new/v15/.suo

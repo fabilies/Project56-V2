@@ -460,3 +460,12 @@ a.right.carousel-control {
 .space {
     padding: 20px;
 }
+
+.mail-success {
+    background-color: #5cb85c;
+    width: 30%;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    color: white;
+}
