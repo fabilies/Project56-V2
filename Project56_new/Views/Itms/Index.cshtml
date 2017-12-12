@@ -1,21 +1,89 @@
-﻿
+﻿﻿
+@model IEnumerable<Project56_new.Models.Itms>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-@using System.Data;
-@{
-    var dataSet = new DataSet();
-    dataSet.ReadXmlSchema(Server.MapPath("~/App_Data/data.xsd"));
-    dataSet.ReadXml(Server.MapPath("~/App_Data/data.xml"));
-    var dataView = new DataView(dataSet.Tables[0]);
-
-    var myChart = new Chart(width: 600, height: 400)
-        .AddTitle("Sales Per Employee")
-        .AddSeries("Default", chartType: "Pie",
-            xValue: dataView, xField: "Name",
-            yValues: dataView, yFields: "Sales")
-        .Write();
-}
+<p>
+    <a asp-action="Create">Nieuw product</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.long_description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.category_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.photo_url)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itm_quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.l_show)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dt_created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dt_modified)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.long_description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.category_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsSales)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.photo_url)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.itm_quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.l_show)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dt_created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dt_modified)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
