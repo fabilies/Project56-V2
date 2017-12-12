@@ -201,28 +201,32 @@ namespace Project56_new.Controllers
             }
         }
         [HttpPost]
-        public IActionResult ConfirmOrder()
+        public async Task<IActionResult> ConfirmOrder()
         {
             // get the logged-in user id
+            Boolean decreased = false;
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var result = _context.ApplicationUser.Where(u => u.Id == userId).FirstOrDefault();
 
             var orders = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
             var ListOfItems = _context.OrdLines.Where(o => o.ord_id == orders.id);
-           
-            foreach (var l in ListOfItems)
+            if(decreased == false)
             {
-                DecreaseStock(l.itm_id, l.qty);
-                
+                foreach (var l in ListOfItems)
+                {
+                    DecreaseStock(l.itm_id, l.qty);
+
+                }
+               
             }
-            orders.ordstatus_id = 5;
-            _context.Update(orders);
-
-            _context.SaveChanges();
-
-            
-            // Create order history record
-            CreateOrderHistoryRecord(orders);
+            decreased = true;
+            if ( decreased == true)
+            {
+                orders.ordstatus_id = 5;
+                _context.Update(orders);
+                _context.SaveChanges();
+                CreateOrderHistoryRecord(orders);
+            }          
 
             // send mail
             SmtpClient client = new SmtpClient("uxilo.com");
