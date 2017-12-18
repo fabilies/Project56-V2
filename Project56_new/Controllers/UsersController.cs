@@ -152,7 +152,7 @@ namespace Project56_new.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("PasswordHash,a_zipcode,a_adres,a_city,a_number,firstname,middlename,lastname,dt_birth,gender,Id,UserName,Email,PhoneNumber,")] ApplicationUser applicationUser)
+        public async Task<IActionResult> Edit(string id, [Bind("UserName, Password, ConfirmPassword, Firstname, Middlename, Lastname, Dt_birth, Gender, Zipcode, Adress, City, Homenumber, Email, Phonenumber")] RegisterViewModel applicationUser)
         {
             if (id != applicationUser.Id)
             {
@@ -180,6 +180,7 @@ namespace Project56_new.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(applicationUser);
+            //return View(applicationUser.ToList());
         }
 
         // GET: Users/Delete/5
