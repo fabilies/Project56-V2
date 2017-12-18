@@ -18,15 +18,21 @@ namespace Project56_new.Controllers
         {
             _context = context;
         }
-        public ActionResult Index(int? page)
+        public ActionResult Index()
         {
             var total_orders = _context.OrdMains.Count();
             var amount_products = _context.Itms.Count();
-            var total_money = _context.OrdHistory.Sum(x => (x.priced_payed * x.qty_bought) );
+            double total_money_exclusive = _context.OrdHistory.Sum(x => (x.priced_payed * x.qty_bought) );
+            int total_money_exc = (int)total_money_exclusive;
+            double total_money_inclusive = ((total_money_exc / 100 * 21)  + total_money_exc);
+
+            
+
 
             ViewBag.total_orders = total_orders;
             ViewBag.amount_products = amount_products;
-            ViewBag.total_money = total_money;
+            ViewBag.total_money_exclusive = total_money_exclusive;
+            ViewBag.total_money_inclusive = total_money_inclusive;
             return View();
         }
     }
