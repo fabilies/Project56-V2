@@ -66,6 +66,19 @@ namespace Project56_new.Controllers
 
             return ord.id;
         }
+        public int CountItmInShoppingCart( int order_id)
+        {
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var result = (from ordlines in _context.OrdLines
+                          join itms in _context.Itms on ordlines.itm_id equals itms.id
+                          join ordmain in _context.OrdMains on ordlines.ord_id equals ordmain.id
+                          where ordlines.ord_id == order_id select ordlines).Count();
+
+            return result;
+
+        }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -94,6 +107,8 @@ namespace Project56_new.Controllers
                             itm_id = itms.id
 
                         };
+                int count = CountItmInShoppingCart(order_id);
+                ViewBag.count = count;
                 ViewBag.model_for_view = model;
                 ViewBag.email = result.Email;
                 ViewBag.a_adres = result.a_adres;
