@@ -1,43 +1,68 @@
-﻿
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.min.js"></script>
-    <script>
-
-        var PieChartData =
+﻿    <script>
+        var PieChartWebshop =
             {
-                labels: ["Aantal producten in webshop", "Totale omzet" , "Aantal orders"],
+                labels: ["Aantal producten in webshop", "Aantal orders"],
                 datasets: [{
                     label: 'Statistieken',
                     backgroundColor: [
-                        "#f990a7",
-                        "#aad2ed",
-                        "#9966FF",
                         "#99e5e5",
-                        "#f7bd83",
+                        "#f7bd83"
                     ],
                     borderWidth: 2,
-                    data: [@ViewBag.amount_products , @ViewBag.total_money ,  @ViewBag.total_orders]
+                    data: [@ViewBag.amount_products ,   @ViewBag.total_orders]
                 }]
             };
+        var PieChartMoney =
+            {
+                labels: [ "Totale omzet inclusief BTW",  "Totale omzet exclusief BTW"],
+                datasets: [{
+                    label: 'Omzet',
+                    backgroundColor: [
+                        "#f990a7",
+                        "#aad2ed"
+                    ],
+                    borderWidth: 2,
+                    data: [@ViewBag.total_money_inclusive , @ViewBag.total_money_exclusive]
 
+                }]
+            };
             window.onload = function () {
-                var ctx1 = document.getElementById("Piecanvas").getContext("2d");
+                var ctx1 = document.getElementById("PiecanvasMoney").getContext("2d");
+                var ctx2 = document.getElementById("PiecanvasWebshop").getContext("2d");
+
+                window.myBar = new Chart(ctx2,
+                    {
+                        type: 'pie',
+                        data: PieChartWebshop,
+                        options:
+                        {
+                            title:
+                            {
+                                display: true,
+                                text: "Statistieken"
+                            },
+                            responsive: true,
+                            maintainAspectRatio: true
+                        }
+                    });
                 window.myBar = new Chart(ctx1,
                     {
                         type: 'pie',
-                        data: PieChartData,
+                        data: PieChartMoney,
                         options:
+                        {
+                            title:
                             {
-                                title:
-                                {
-                                    display: true,
-                                    text: "Statistieken"
-                                },
-                                responsive: true,
-                                maintainAspectRatio: true
-                            }
+                                display: true,
+                                text: "Omzet"
+                            },
+                            responsive: true,
+                            maintainAspectRatio: true
+                        }
                     });
             }
-    </script>
-    <div style="text-align: center">
-        <canvas id="Piecanvas"></canvas>
+</script>
+    <div style="text-align: center;float:left;width:100%;" >
+        <canvas id="PiecanvasMoney"></canvas>
+        <canvas id="PiecanvasWebshop"></canvas>
     </div>
