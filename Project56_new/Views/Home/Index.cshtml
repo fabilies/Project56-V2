@@ -124,9 +124,12 @@ htmlAttributes: new { @class = "btn btn-success btn-large" })
 
                                                
 
-                                                <a href="@Url.Action("addWishList", "WishList", new { itm_id = item.id })">
-                                                    <i class="fa fa-star"></i>
-                                                </a>
+                                                @if (item.itm_quantity != 0)
+                                                {
+                                                    <a href="@Url.Action("addWishList", "WishList", new { itm_id = item.id })">
+                                                        <i class="fa fa-star"></i>
+                                                    </a>
+                                                }
                                           
                                             </div>
                                             <!-- END SALE PRODUCT-->

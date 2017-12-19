@@ -139,7 +139,29 @@ namespace Project56_new.Controllers
                 return NotFound();
             }
 
-            var applicationUser = await _context.UsersDb.SingleOrDefaultAsync(m => m.Id == id);
+            //var applicationUser = await _context.UsersDb.SingleOrDefaultAsync(
+            //    m => m.Id == id
+            //    );
+
+            var applicationUser = (from a in _context.ApplicationUser
+                                  where a.Id == id
+                                  select new RegisterViewModel
+                                  {
+
+                                      UserName = a.UserName,
+                                      Email = a.Email,
+                                      Firstname = a.firstname,
+                                      Middlename = a.middlename,
+                                      Lastname = a.lastname,
+                                      Dt_birth = a.dt_birth,
+                                      Gender = a.gender,
+                                      Zipcode = a.a_zipcode,
+                                      Adress = a.a_adres,
+                                      City = a.a_city,
+                                      Homenumber = a.a_number,
+                                      Phonenumber = a.PhoneNumber
+                                  }).FirstOrDefault();
+
             if (applicationUser == null)
             {
                 return NotFound();
@@ -152,35 +174,40 @@ namespace Project56_new.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("UserName, Password, ConfirmPassword, Firstname, Middlename, Lastname, Dt_birth, Gender, Zipcode, Adress, City, Homenumber, Email, Phonenumber")] RegisterViewModel applicationUser)
+        // [Bind("PasswordHash,a_zipcode,a_adres,a_city,a_number,firstname,middlename,lastname,dt_birth,gender,Id,UserName,Email,PhoneNumber")]
+        public async Task<IActionResult> Edit(string id, [Bind("UserName, Password, Firstname, Middlename, Lastname, Dt_birth, Gender, Zipcode, Adress, City, Homenumber, Email, Phonenumber")] RegisterViewModel applicationUser)
         {
-            if (id != applicationUser.Id)
+            var search_id = (from u in _context.ApplicationUser
+                             where u.Id == id
+                             select u).FirstOrDefault();
+
+
+            search_id.Id = id;
+            search_id.firstname = applicationUser.Firstname;
+            search_id.lastname = applicationUser.Lastname;
+            search_id.middlename = applicationUser.Middlename;
+            search_id.PhoneNumber = applicationUser.Phonenumber;
+            search_id.UserName = search_id.UserName;
+            search_id.a_adres = applicationUser.Adress;
+            search_id.a_city = applicationUser.City;
+            search_id.a_number = applicationUser.Homenumber;
+            search_id.a_zipcode = applicationUser.Zipcode;
+            search_id.Email = applicationUser.Email;
+            search_id.gender = applicationUser.Gender;
+            search_id.PasswordHash = search_id.PasswordHash;
+
+
+            if (search_id.Id == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            else
             {
-                try
-                {
-                    _context.Update(applicationUser);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ApplicationUserExists(applicationUser.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(search_id);
+                await _context.SaveChangesAsync();
             }
-            return View(applicationUser);
-            //return View(applicationUser.ToList());
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Users/Delete/5

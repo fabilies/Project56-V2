@@ -87,14 +87,20 @@ namespace Project56_new.Controllers
 
                 LRec_id = wish.id;
             }
-           
+            var check = (from m in _context.WishLines
+                         where m.itm_id == itm_id && m.Wishmain_id == LRec_id
+                         select m).FirstOrDefault();
+
+            if(check == null)
+            {
                 // Create new wishline
                 WishLines wline = new WishLines();
                 wline.itm_id = itm_id;
-               wline.Wishmain_id = LRec_id;
+                wline.Wishmain_id = LRec_id;
                 wline.dt_created = DateTime.Now;
                 _context.Add(wline);
                 await _context.SaveChangesAsync();
+            }  
           return RedirectToAction(nameof(Index));
 
         }

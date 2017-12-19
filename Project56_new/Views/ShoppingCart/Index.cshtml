@@ -36,7 +36,7 @@
                                 <td data-th="Price" >@Html.DisplayFor(model => model[i].price) </td>
                                
                                 <td data-th="Quantity">
-                                    <input asp-for="@Model[i].qty" type="number" min="0" max="@Html.DisplayFor(model => model[i].stock)" id="_data_qty_@Model[i].ordline_id"  onchange="UpdateQtyOrder(@Model[i].ordline_id , this.value)"class="form-control" value="@Model[i].qty">
+                                    <input asp-for="@Model[i].qty" type="number" min="1" max="@Html.DisplayFor(model => model[i].stock)" id="_data_qty_@Model[i].ordline_id"  onchange="UpdateQtyOrder(@Model[i].ordline_id , this.value)"class="form-control" value="@Model[i].qty">
                                   @Html.HiddenFor(x => Model[i].ordline_id)
                                   @Html.HiddenFor(x => Model[i].ord_ad)
                                   @Html.HiddenFor(x => Model[i].itm_id)

@@ -32,8 +32,21 @@
             <div class="form-group">
                 <label asp-for="IsSales" class="control-label"></label>
                 <select name="IsSales" class="form-control">
-                    <option value="-1" selected>Nee</option>
-                    <option value="1">Ja</option>
+
+                    @if (Model.IsSales == 0)
+                    {
+
+                        <option value="-1" selected>Nee</option>
+
+                        <option value="1">Ja</option>
+                    }
+                    else
+                    {
+                        <option value="-1">Nee</option>
+
+                        <option value="1" selected>Ja</option>
+
+                    }
                 </select>
                 <span asp-validation-for="category_id" class="text-danger"></span>
             </div>
@@ -54,8 +67,21 @@
             <div class="form-group">
                 <label asp-for="l_show" class="control-label"></label>
                 <select name="l_show" class="form-control">
-                    <option value="1" selected>Actief</option>
-                    <option value="0">Inactief</option>
+
+                    @if (Model.l_show == 1)
+                    {
+
+                        <option value="1" selected>Actief</option>
+                        <option value="0">Inactief</option>
+                    }
+                    else
+                    {
+                        <option value="1" >Actief</option>
+                        <option value="0" selected>Inactief</option>
+
+                    }
+
+                    
                 </select>
                 <span asp-validation-for="l_show" class="text-danger"></span>
             </div>

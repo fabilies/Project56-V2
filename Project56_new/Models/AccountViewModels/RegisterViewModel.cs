@@ -8,6 +8,8 @@ namespace Project56_new.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
+        public string Id { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
