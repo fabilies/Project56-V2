@@ -31,7 +31,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/home">
-                    <img src="https://i.imgur.com/1wSrUSh.png" alt="ThugLife" style="max-height:32px;">
+                    @*<img src="https://i.imgur.com/1wSrUSh.png" alt="ThugLife" style="max-height:32px;">*@
+                    <img src="~/images/BDH-logo.png" alt="Bogo" style="max-height:65px;">
+
                 </a>
                 <!-- <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Project56_new</a> -->
             </div>
@@ -62,30 +64,6 @@
     
     <div class="custom-container">
         @RenderBody()
-        <div class="row footer-row">
-            <footer>
-                <div class="col-md-4 padding-fix">
-                    <h4>About:</h4>
-                    <p>&copy; 2017 - BDH Studio</p>
-                </div>
-                <div class="col-md-4">
-                    <h4>Links:</h4>
-                    <ul class="no-bullets">
-                        <li><a href="/home/contact">Contact</a></li>
-                        <li><a href="/wishlist">Verlanglijst</a></li>
-                        <li><a href="https://www.ray-ban.com/">Ray-ban official</a></li>
-                        <li><a href="https://store.dolcegabbana.com/en/men/accessories/sunglasses/">Dolce & Gabbana official</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h4>Contact:</h4>
-                    Wijnhaven 107<br />
-                    Rotterdam, 9374TR<br />
-                    Tel: 0182 - 567890
-                </div>
-            </footer>
-        </div>
-
     </div>
 
     <environment include="Development">

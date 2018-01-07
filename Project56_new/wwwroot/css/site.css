@@ -78,11 +78,12 @@
     border-color: none !important;
     border-radius: 0px !important;
     margin-bottom: 0px !important;
+    min-height: 90px;
 }
 
     .navbar-inverse .navbar-nav > li > a {
         color: white;
-        font-size: 12pt;
+        font-size: 15pt;
     }
 
 .vmenu {
@@ -437,13 +438,13 @@ i.fa.fa-star {
 
 /* Product slider css*/
 #myCarousel {
-    min-height: 355px;
-    max-height: 355px;
+    min-height: 440px;
+    max-height: 440px;
 }
 
 .carousel-inner {
-    min-height: 355px;
-    max-height: 355px;
+    min-height: 440px;
+    max-height: 440px;
 }
 
 a.left.carousel-control, a.right.carousel-control {
@@ -495,7 +496,7 @@ a.right.carousel-control.mainSlider, a.left.carousel-control.mainSlider {
 }
 
 .img-slide-1 {
-    height: 355px;
+    height: 440px;
     background-image: url(../images/slider/bdh-studio-sunglass4.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -503,7 +504,7 @@ a.right.carousel-control.mainSlider, a.left.carousel-control.mainSlider {
 }
 
 .img-slide-2 {
-    height: 355px;
+    height: 440px;
     background-image: url(../images/slider/bdh-studio-sunglass5.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -569,6 +570,7 @@ div.title_wrapper h2 {
 
 .custom-container {
     width: 100%;
+    margin-top: 40px;
 }
 
 ul.no-bullets {
@@ -594,4 +596,30 @@ html {
 .campaignholder {
     margin-top: 50px;
     padding: 0px;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    margin-top: 20px !important;
+}
+
+#center-content-inner {
+    display: table;
+    margin: 0 auto;
+    width: 55%;
+    padding: 20px;
+    margin-top: 50px;
+    border: 1px solid #bfbfbf;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+}
+
+
+.row.footer-pages {
+    background-color: #212121;
+    color: white;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
 }
