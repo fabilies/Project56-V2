@@ -196,6 +196,7 @@ namespace Project56_new.Controllers
             OrdHistory h = new OrdHistory();
             var result = (from ordline in _context.OrdLines
                           join itm in _context.Itms on ordline.itm_id equals itm.id
+                          where ordline.ord_id == m.id && userId == m.user_ad
                           select new OrdHistory
                           {
                               itm_description = itm.description,

@@ -1,0 +1,37 @@
+﻿@model List<Project56_new.Models.OrdHistory>
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                Artikel
+            </th>
+            <th>
+                Prijs per stuk
+            </th>
+            <th>
+                Aantal gekocht
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Count; i++)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].itm_description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].priced_payed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].qty_bought)
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>
