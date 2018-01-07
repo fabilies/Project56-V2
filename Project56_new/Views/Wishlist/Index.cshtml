@@ -20,18 +20,18 @@
                 <h4>@Html.DisplayFor(modelItem => item.long_description)</h4>
             </td>
             <td>
-                <img src="~/images/products/@Html.DisplayFor(modelItem => item.photo_url)" style="width:100px;height:100px;" />
+                <img src="~/images/products/@Html.DisplayFor(modelItem => item.photo_url)" style="width:200px;height:100px;" />
             </td>
             <td>
 
-                @Html.ActionLink("Toevoegen aan winkelmand", "SaveItmInShoppingCart", "ShoppingCart",
+                @Html.ActionLink("In winkelmand", "SaveItmInShoppingCart", "ShoppingCart",
                        routeValues: new
                        {
                            itm_id = item.itm_id
                        },
                          htmlAttributes: new { @class = "btn btn-success btn-large" })
 
-                <a class="btn btn-danger" href='@Url.Action("DeleteFromWishList", "WishList", new { ordline_id = item.ordline_id })'>Verwijderen</a>
+                <a class="btn btn-danger" href='@Url.Action("DeleteFromWishList", "WishList", new { ordline_id = item.ordline_id })'>X</a>
                 @ViewBag.ErrorMessage
             </td>
         </tr>
@@ -40,7 +40,7 @@
 }
 else
 {
-    <h1>Nog geen artikelen gevonden</h1>
+    <h4 style="color: rgba(158, 1, 1, 0.9);">Uw verlanglijst is leeg</h4>
 }
 
 </table>
