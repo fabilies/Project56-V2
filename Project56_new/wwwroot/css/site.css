@@ -496,7 +496,15 @@ a.right.carousel-control.mainSlider, a.left.carousel-control.mainSlider {
 
 .img-slide-1 {
     height: 355px;
-    background-image: url(../images/slider/bdh-studio-sunglass2.jpg);
+    background-image: url(../images/slider/bdh-studio-sunglass4.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 48%;
+}
+
+.img-slide-2 {
+    height: 355px;
+    background-image: url(../images/slider/bdh-studio-sunglass5.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 50% 48%;
@@ -531,6 +539,7 @@ a.right.carousel-control.mainSlider, a.left.carousel-control.mainSlider {
 .g-brands-header {
     background-color: #212121;
     color: white;
+    margin-top: 10px;
 }
 
 div.title_wrapper {
