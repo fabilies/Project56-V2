@@ -1,4 +1,4 @@
-﻿@model List<Project56_new.Models.OrdHistory>
+﻿@model List<Project56_new.Models.OrdMains>
 
 
 <table class="table">
@@ -7,64 +7,35 @@
             <th>
                 Order NR
             </th>
-            <th>
-                Artikel
-            </th>
-            <th>
-                Prijs per stuk
-            </th>
-            <th>
-                Aantal gekocht
-            </th>
+
+
+            <th>Status</th>
             <th>
                 Datum aangemaakt
             </th>
-
-            <th>Status</th>
         </tr>
     </thead>
     <tbody>
-   @for (var i = 0; i < Model.Count - 1 ; i++) 
-   {
-     
-        int current = Model[i].ord_id;
-        int next = Model[i + 1].ord_id;
-
+        @for (var i = 0; i < Model.Count; i++)
+        {
         <tr>
-            @if (current == next)
-    {
-        <td>
-            @Html.DisplayFor(modelItem => Model[i].ord_id)
-        </td>
-}
-else
-{
-        <td> > </td>
 
-}
             <td>
-                @Html.DisplayFor(modelItem => Model[i].itm_description)
+                @Html.DisplayFor(modelItem => Model[i].id)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model[i].priced_payed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model[i].qty_bought)
-            </td>
+            <td><span style="color:green;">Betaald</span></td>
             <td>
                 @Html.DisplayFor(modelItem => Model[i].dt_created)
             </td>
-            @if (current == next)
-    {
-       
-        <td><span style="color:green;">Betaald</span></td>
-      
-}
-else
-{
-        <td> </td>
-
-}
+            <td>
+                @Html.ActionLink("Details", "MyOrderDetails", "Manage",
+               routeValues: new
+               {
+                   order_id = Model[i].id
+                },
+                htmlAttributes: new { @class = "btn btn-success btn-large" })
+            </td>
+         
 
         </tr>
         }

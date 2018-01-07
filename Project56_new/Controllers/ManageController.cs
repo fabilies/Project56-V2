@@ -173,13 +173,13 @@ namespace Project56_new.Controllers
             return RedirectToAction(nameof(ChangeAdres));
         }
         [HttpGet]
-        public async Task<IActionResult> MyOrders()
+        public async Task<IActionResult> MyOrderDetails(int order_id)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var result = (from history in _context.OrdHistory   
-                          where history.user_ad == userId
-
+                          where history.user_ad == userId && history.ord_id == order_id
+                          orderby history.ord_id descending
                           select  new OrdHistory
                           {
                              ord_id = history.ord_id,
@@ -188,6 +188,23 @@ namespace Project56_new.Controllers
                              itm_description = history.itm_description,
                              dt_created = history.dt_created
                           });
+
+            return View(result.ToList());
+        }
+        [HttpGet]
+        public async Task<IActionResult> MyOrders()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var result = (from ordmain in _context.OrdMains
+                          where ordmain.user_ad == userId && ordmain.ordstatus_id == 5
+                          
+                          select new OrdMains
+                          {
+                              id = ordmain.id,
+                              ordstatus_id = ordmain.ordstatus_id,
+                              dt_created = ordmain.dt_created
+                    });
 
             return View(result.ToList());
         }
