@@ -177,18 +177,15 @@ namespace Project56_new.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var result = (from history in _context.OrdHistory
-                          join order in _context.OrdMains on history.ord_id equals order.id
-                          join orderline in _context.OrdLines on history.ordline_id equals orderline.id
-                          join itm in _context.Itms on orderline.itm_id equals itm.id
+            var result = (from history in _context.OrdHistory   
                           where history.user_ad == userId
 
                           select  new OrdHistory
                           {
-                             ord_id = order.id,
+                             ord_id = history.ord_id,
                              priced_payed = history.priced_payed,
-                             qty_bought = orderline.qty,
-                             itm_description = itm.description,
+                             qty_bought = history.qty_bought,
+                             itm_description = history.itm_description,
                              dt_created = history.dt_created
                           });
 
