@@ -7,9 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using Project56_new.Data;
 using Project56_new.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Project56_new.Controllers
 {
+    [Authorize]
     public class WishlistController : Controller
     {
         private readonly ApplicationDbContext _context;

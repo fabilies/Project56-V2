@@ -4,74 +4,80 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Nieuw item:</h2>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        
-        <form asp-action="Create" enctype="multipart/form-data" method="post" >
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="description" class="control-label"></label>
-                <input asp-for="description" class="form-control" />
-                <span asp-validation-for="description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="long_description" class="control-label"></label>
-                <input asp-for="long_description" class="form-control" />
-                <span asp-validation-for="long_description" class="text-danger"></span>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="category_id" class="control-label"></label>
-                <select name="category_id" class="form-control">
-                    <option value="0" selected>Zonnebrillen</option>
-                    <option value="1">Sterktebrillen</option>
-                </select>
-                <span asp-validation-for="category_id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IsSales" class="control-label"></label>
-                <select name="IsSales" class="form-control">
-                    <option value="-1" selected>Nee</option>
-                    <option value="1">Ja</option>
-                </select>
-                <span asp-validation-for="category_id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="price" class="control-label"></label>
-                <input asp-for="price" type="number" class="form-control" />
-                <span asp-validation-for="price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="photo_url" class="control-label"></label>
-                <input  type="file" name="pic" accept="image/*" />
-            </div>
-            <div class="form-group">
-                <label asp-for="itm_quantity" class="control-label"></label>
-                <input asp-for="itm_quantity" class="form-control" min="0"/>
-                <span asp-validation-for="itm_quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="l_show" class="control-label"></label>
-                <select name="l_show" class="form-control">
-                    <option value="1" selected>Actief</option>
-                    <option value="0">Inactief</option>
-                </select>
-                <span asp-validation-for="l_show" class="text-danger"></span>
-            </div>
+<div id="center-content-outer" style="width:100%">
+    <div id="center-content-inner">
+        <h2>Nieuw artikel:</h2>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
 
-            <div class="form-group">
-                <input type="submit" value="Toevoegen" class="btn btn-success" />
+                <form asp-action="Create" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="description" class="control-label"></label>
+                        <input asp-for="description" class="form-control" />
+                        <span asp-validation-for="description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="long_description" class="control-label"></label>
+                        <input asp-for="long_description" class="form-control" />
+                        <span asp-validation-for="long_description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="category_id" class="control-label"></label>
+                        <select name="category_id" class="form-control">
+                            <option value="0" selected>Zonnebrillen</option>
+                            <option value="1">Sterktebrillen</option>
+                        </select>
+                        <span asp-validation-for="category_id" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IsSales" class="control-label"></label>
+                        <select name="IsSales" class="form-control">
+                            <option value="-1" selected>Nee</option>
+                            <option value="1">Ja</option>
+                        </select>
+                        <span asp-validation-for="category_id" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="price" class="control-label"></label>
+                        <input asp-for="price" type="number" class="form-control" />
+                        <span asp-validation-for="price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="photo_url" class="control-label"></label>
+                        <input type="file" name="pic" accept="image/*" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="itm_quantity" class="control-label"></label>
+                        <input asp-for="itm_quantity" class="form-control" min="0" />
+                        <span asp-validation-for="itm_quantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="l_show" class="control-label"></label>
+                        <select name="l_show" class="form-control">
+                            <option value="1" selected>Actief</option>
+                            <option value="0">Inactief</option>
+                        </select>
+                        <span asp-validation-for="l_show" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Toevoegen" class="btn btn-success" />
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
+
+        <div>
+            <a class="btn btn-default" asp-action="Index">Terug naar overzicht</a>
+        </div>
+
+        </div>
     </div>
-</div>
 
-<div>
-    <a class="btn btn-default" asp-action="Index">Terug naar overzicht</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

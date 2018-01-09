@@ -49,6 +49,7 @@
                             </tr>
                          }
                      }
+                                    
                     </tbody>
                     <tfoot>
                         <tr class="visible-xs">
@@ -101,10 +102,17 @@
 
 
                                 }
+    
                             }
+        
                         </tr>
                     </tfoot>
                 </table>
+                @if (ViewBag.model_for_view == null)
+                {
+                   <span style="color:red;"> Winkelmand is leeg!</span>
+
+                }
             </form>
            
     </div>

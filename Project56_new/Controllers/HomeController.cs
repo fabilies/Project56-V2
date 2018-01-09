@@ -97,11 +97,25 @@ namespace Project56_new.Controllers
                 try
                 {
                     MailMessage sentMail = new MailMessage();
+                    sentMail.IsBodyHtml = true;
                     // TODO Fix HTML weergave
-                    sentMail.Body = " Naam: " + c.naam +
-                                    " Van: " + c.email +
-                                    " Onderwerp: " + c.onderwerp +
-                                    " Bericht: " + c.bericht;
+                    sentMail.Body = " <div style='width:95%;'> " +
+                                    " <img src='https://i.imgur.com/PqqYp7k.png' style='width: 75%; height: 135px;'/>" +
+                                    " <table style='font-family: arial,sans-serif;border-collapse: collapse;width:75%; '>" +
+                                    " <tr> " +
+                                    " <th style='border: 1px solid #dddddd;text-align: left; padding:8px;font-size: 14pt;'>Naam:</th>" +
+                                    " <th style='border: 1px solid #dddddd;text-align: left; padding:8px;font-size: 14pt;'>Van:</th>" +
+                                    " <th style='border: 1px solid #dddddd;text-align: left; padding:8px;font-size: 14pt;'>Onderwerp:</th>" +
+                                    " <th style='border: 1px solid #dddddd;text-align: left; padding:8px;font-size: 14pt;'>Bericht:</th>" +
+                                    " </tr>" +
+                                    " <tr>" +
+                                    " <td style='border: 1px solid #dddddd;text-align: left; padding:8px;'>" + c.naam + "</td>" +
+                                    " <td style='border: 1px solid #dddddd;text-align: left; padding:8px;'>" + c.email + "</td>" +
+                                    " <td style='border: 1px solid #dddddd;text-align: left; padding:8px;'>" + c.onderwerp + "</td>" +
+                                    " <td style='border: 1px solid #dddddd;text-align: left; padding:8px;'>" + c.bericht + "</td>" +
+                                    "</table>" +
+                                    "</div>";
+                                    
                     sentMail.From = new MailAddress(c.email);
                     sentMail.To.Add("bdhstudiowebshop@gmail.com");
                     sentMail.Subject = c.onderwerp;
@@ -125,13 +139,6 @@ namespace Project56_new.Controllers
                     ViewBag.Message = $"Er is een fout opgetreden {err.Message}";
                 }
             }
-
-            return View();
-        }
-
-        public IActionResult Favourites()
-        {
-            ViewData["Message"] = "Your Favourites page.";
 
             return View();
         }

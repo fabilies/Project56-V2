@@ -169,28 +169,27 @@ namespace Project56_new.Controllers
             return View(itms);
         }
 
+        //// GET: Itms/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var itms = await _context.Itms
+        //        .SingleOrDefaultAsync(m => m.id == id);
+        //    if (itms == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(itms);
+        //}
+
         // GET: Itms/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var itms = await _context.Itms
-                .SingleOrDefaultAsync(m => m.id == id);
-            if (itms == null)
-            {
-                return NotFound();
-            }
-
-            return View(itms);
-        }
-
-        // POST: Itms/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
             var itms = await _context.Itms.SingleOrDefaultAsync(m => m.id == id);
             _context.Itms.Remove(itms);

@@ -8,9 +8,11 @@ using System.Security.Claims;
 using Project56_new.Models;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Project56_new.Controllers
 {
+    [Authorize]
     public class ShoppingCartController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -226,7 +228,8 @@ namespace Project56_new.Controllers
 
             var orders = _context.OrdMains.Where(o => o.user_ad == userId && o.ordstatus_id == 3).FirstOrDefault();
             var ListOfItems = _context.OrdLines.Where(o => o.ord_id == orders.id);
-            if(decreased == false)
+          
+            if (decreased == false)
             {
                 foreach (var l in ListOfItems)
                 {
@@ -242,21 +245,59 @@ namespace Project56_new.Controllers
                 _context.Update(orders);
                 _context.SaveChanges();
                 CreateOrderHistoryRecord(orders);
-            }          
+            }
+            var Listpurchitems = (from os in _context.OrdHistory
+                                  join ordline in _context.OrdLines on os.ordline_id equals ordline.id
+                                  join itm in _context.Itms on ordline.itm_id equals itm.id
+                                  where os.ord_id == orders.id && os.user_ad == userId
+                                  select new
+                                  {
+                                      Itms = itm,
+                                      OrdLines = ordline,
+                                      OrdHistory = os
+                                  }).ToList();
 
             // send mail
             SmtpClient client = new SmtpClient("uxilo.com");
            // client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("webshop@uxilo.com", "webshop12345");
+            client.Credentials = new NetworkCredential("webshop@uxilo.com", "webshop123");
             client.Port = 587;
 
             MailMessage mailMessage = new MailMessage();
+            mailMessage.IsBodyHtml = true;
             mailMessage.From = new MailAddress("no-reply@webshop.com");
             mailMessage.To.Add(result.Email);
-            mailMessage.Body = "Bedankt voor het bestellen bij onze webshop.";
             mailMessage.Subject = "Order " + orders.id;
-            client.Send(mailMessage);
+            string fullname = result.firstname + " " + result.middlename + " " + result.lastname;
 
+            mailMessage.Body = "Beste "+ fullname + " Bedankt voor het bestellen bij onze webshop.<br>";
+            
+            mailMessage.Body += "Hier een overzicht van de artikelen die u besteld heeft : <br> ";
+            mailMessage.Body += "<table><tr><th>Artikel</th><th>Aantal</th><th>Prijs</th></tr>";
+
+            foreach (var item in Listpurchitems)
+            {
+                mailMessage.Body += "<tr>";
+                mailMessage.Body += "<td>" + item.Itms.photo_url + "</td>";
+                mailMessage.Body += "<td>" + item.OrdHistory.itm_description + "</td>";
+                mailMessage.Body += "<td>" + item.OrdHistory.qty_bought + "</td>";
+                mailMessage.Body += "<td>" + item.OrdHistory.priced_payed + "</td>";
+                mailMessage.Body += "</tr>";
+            }
+            mailMessage.Body += "</table>";
+            mailMessage.Body += "Bedankt voor het bestellen bij onze webshop!<br>";
+            mailMessage.Body += "Indien er nog vragen zijn kunt u contact opnemen met nummer 112";
+
+            // artikelen
+            // order gegevens
+
+            // 
+
+
+
+
+            client.Send(mailMessage);
+            
             return RedirectToAction("index", "Home");
         
         }

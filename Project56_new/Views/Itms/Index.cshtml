@@ -4,10 +4,10 @@
 @{
     ViewData["Title"] = "Index";
 }
-
 <p>
-    <a asp-action="Create">Nieuw product</a>
+    <a class="btn btn-success" asp-action="Create">Nieuw product</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -18,29 +18,9 @@
                 @Html.DisplayNameFor(model => model.long_description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.category_id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsSales)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.price)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.photo_url)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.itm_quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.l_show)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.dt_created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.dt_modified)
-            </th>
+            <th>@Html.DisplayNameFor(model => model.itm_quantity)</th>
             <th></th>
         </tr>
     </thead>
@@ -55,35 +35,17 @@
                     @Html.DisplayFor(modelItem => item.long_description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.category_id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsSales)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.photo_url)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.itm_quantity)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.l_show)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.dt_created)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.dt_modified)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.id">Wijzingen</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.id">X</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
