@@ -24,8 +24,20 @@
             <div class="form-group">
                 <label asp-for="category_id" class="control-label"></label>
                 <select name="category_id" class="form-control">
-                    <option value="0" selected>Zonnebrillen</option>
-                    <option value="1">Sterktebrillen</option>
+
+                    @if (Model.category_id == 0)
+                    {
+
+                     <option value="0" selected>Zonnebrillen</option>
+                      <option value="1">Sterktebrillen</option>
+                    }
+                    else
+                    {
+                        <option value="0">Zonnebrillen</option>
+                        <option value="1" selected>Sterktebrillen</option>
+
+
+                    }
                 </select>
                 <span asp-validation-for="category_id" class="text-danger"></span>
             </div>
@@ -33,7 +45,7 @@
                 <label asp-for="IsSales" class="control-label"></label>
                 <select name="IsSales" class="form-control">
 
-                    @if (Model.IsSales == 0)
+                    @if (Model.IsSales ==-1)
                     {
 
                         <option value="-1" selected>Nee</option>
