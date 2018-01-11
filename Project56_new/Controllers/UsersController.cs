@@ -211,27 +211,26 @@ namespace Project56_new.Controllers
         }
 
         // GET: Users/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var applicationUser = await _context.UsersDb
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (applicationUser == null)
-            {
-                return NotFound();
-            }
+        //    var applicationUser = await _context.UsersDb
+        //        .SingleOrDefaultAsync(m => m.Id == id);
+        //    if (applicationUser == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(applicationUser);
-        }
+        //    return View(applicationUser);
+        //}
 
         // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        [HttpGet]   
+        public async Task<IActionResult> Delete(string id)
         {
             var applicationUser = await _context.UsersDb.SingleOrDefaultAsync(m => m.Id == id);
             _context.UsersDb.Remove(applicationUser);

@@ -11,20 +11,25 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Project56_new.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class ItmsController : Controller
     {
+        private readonly IHostingEnvironment hostingEnvironment;
+
         private readonly ApplicationDbContext _context;
 
-       
-        public ItmsController(ApplicationDbContext context)
+
+        public ItmsController(ApplicationDbContext context, IHostingEnvironment environment)
         {
             _context = context;
+            hostingEnvironment = environment;
+
         }
-        // GET: Itms
+            // GET: Itms
         public async Task<IActionResult> Index()
         {
             return View(await _context.Itms.ToListAsync());
@@ -47,41 +52,30 @@ namespace Project56_new.Controllers
 
             return View(itms);
         }
-        // Algemene upload functie
-        public async void ItmImage(Itms itms)
+        public  void ItmImage(Itms itms)
         {
+
             var files = HttpContext.Request.Form.Files;
+            
             foreach (var Image in files)
             {
-                if (Image != null && Image.Length > 0)
-                {
-
-                    var file = Image;
-                    var uploads = Path.Combine("wwwroot\\images\\products\\");
-
-                    if (file.Length > 0)
-                    {
-                        Random rnd = new Random();
-                        int num = rnd.Next(0000000, 9999999);
-
-                        var fileName = ContentDispositionHeaderValue.Parse
-                            (file.ContentDisposition).FileName.Trim('"');
-
-
-                        string Key = num + fileName;
-
-                        System.Console.WriteLine(fileName);
-                        using (var fileStream = new FileStream(Path.Combine(uploads, Key), FileMode.Create))
-                        {
-                            await file.CopyToAsync(fileStream);
-                            itms.photo_url = Key;
-
-                        }
-
-
-                    }
+                if (Image.FileName != "") {
+                var uniqueFileName = GetUniqueName(Image.FileName);
+                var uploads = Path.Combine(hostingEnvironment.WebRootPath, "images/products");
+                var filePath = Path.Combine(uploads, uniqueFileName);
+                 Image.CopyTo(new FileStream(filePath, FileMode.Create));
+                itms.photo_url = uniqueFileName;
                 }
             }
+               
+        }
+        private string GetUniqueName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                      + "_"
+                      + Guid.NewGuid().ToString().Substring(0, 4)
+                      + Path.GetExtension(fileName);
         }
 
 
@@ -149,7 +143,18 @@ namespace Project56_new.Controllers
             {
                 try
                 {
-                    this.ItmImage(itms);
+                 
+                      this.ItmImage(itms);
+                      if (itms.photo_url == "" || itms.photo_url == null)
+                    {
+                        var result = (from i in _context.Itms
+                                      where i.id == id
+                                      select i.photo_url).FirstOrDefault() ;
+
+                        itms.photo_url = result;
+
+                    }
+                    
                     _context.Update(itms);
                     await _context.SaveChangesAsync();
                 }
