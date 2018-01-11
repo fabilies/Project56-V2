@@ -62,16 +62,15 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="gender"></label>
+                <label>Geslacht</label>
                 <select asp-for="gender" class="form-control">
                     <option value="Man">Man</option>
                     <option value="Vrouw">Vrouw</option>
-                    class="form-control"
                 </select>
                 <span asp-validation-for="gender" class="text-danger"></span>
             </div>
 
-            <button type="submit" class="btn btn-default">Save</button>
+            <button type="submit" class="btn btn-primary">Opslaan</button>
         </form>
     </div>
 </div>
