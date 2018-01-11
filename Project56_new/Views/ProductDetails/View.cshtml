@@ -3,55 +3,63 @@
 @{
     ViewData["Title"] = "View";
 }
-<h2>Product Details</h2>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <table>
-           <tr>
-               <td><h4>@Html.DisplayNameFor(model => model.description)</h4> </td>
-               <td>@Html.DisplayFor(model => model.description)</td>
-           </tr>
-            <tr>
-                <td><h4>@Html.DisplayNameFor(model => model.long_description)</h4> </td>
-                <td>@Html.DisplayFor(model => model.long_description)</td>
-            </tr>
-            <tr>
-                <td><h4>@Html.DisplayNameFor(model => model.price)</h4> </td>
-                <td style="color:darkgreen;">&euro; @Html.DisplayFor(model => model.price),-</td>
-            </tr>
-            <tr>
-                <td><h4>@Html.DisplayNameFor(model => model.itm_quantity)</h4> </td>
-                @if (Model.itm_quantity != 0)
-                {
-                    <td style="color:darkgreen;">@Html.DisplayFor(model => model.itm_quantity)</td>
-                }
-                else
-                {
-                    <td style="color:red;">@Html.DisplayFor(model => model.itm_quantity)</td>
-                }
-            </tr>
-            <tr>
-                <td><img src="~/images/products/@Html.DisplayFor(model => model.photo_url)" style="max-width:300px;float:right;" alt="@Html.DisplayFor(model => model.description)"></td>
-            </tr>
 
-        </table>
+<div id="center-content-outer" style="width:100%">
+    <div id="center-content-inner">
+        <h2>Product Details</h2>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <table>
+                    <tr>
+                        <td><h4>@Html.DisplayNameFor(model => model.description)</h4> </td>
+                        <td>@Html.DisplayFor(model => model.description)</td>
+                    </tr>
+                    <tr>
+                        <td><h4>@Html.DisplayNameFor(model => model.long_description)</h4> </td>
+                        <td>@Html.DisplayFor(model => model.long_description)</td>
+                    </tr>
+                    <tr>
+                        <td><h4>@Html.DisplayNameFor(model => model.price)</h4> </td>
+                        <td style="color:darkgreen;">&euro; @Html.DisplayFor(model => model.price),-</td>
+                    </tr>
+                    <tr>
+                        <td><h4>@Html.DisplayNameFor(model => model.itm_quantity)</h4> </td>
+                        @if (Model.itm_quantity != 0)
+                        {
+                            <td style="color:darkgreen;">@Html.DisplayFor(model => model.itm_quantity)</td>
+                        }
+                        else
+                        {
+                            <td style="color:red;">@Html.DisplayFor(model => model.itm_quantity)</td>
+                        }
+                    </tr>
+                    <tr>
+                        <td><img src="~/images/products/@Html.DisplayFor(model => model.photo_url)" style="max-width:300px;float:right;" alt="@Html.DisplayFor(model => model.description)"></td>
+                    </tr>
 
-    </div>
-</div>
-<div>
-    @Html.ActionLink("Terug", "Index", "Home", null, new { @class = "btn btn-default btn-large" })
+                </table>
 
-    @if (Model.itm_quantity != 0)
-    {
-        @Html.ActionLink("Toevoegen aan winkelmand","SaveItmInShoppingCart","ShoppingCart",
+            </div>
+        </div>
+
+        <div>
+
+            @Html.ActionLink("Terug", "Index", "Home", null, new { @class = "btn btn-default btn-large" })
+
+            @if (Model.itm_quantity != 0)
+            {
+                @Html.ActionLink("Toevoegen aan winkelmand", "SaveItmInShoppingCart", "ShoppingCart",
                       routeValues: new
                       {
                           itm_id = Model.id
                       },
                         htmlAttributes: new { @class = "btn btn-success btn-large" })
-    }
+            }
 
+        </div>
+
+    </div>
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

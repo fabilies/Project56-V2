@@ -1,4 +1,4 @@
-﻿    <script>
+﻿<script>
         var PieChartWebshop =
             {
                 labels: ["Aantal producten in webshop", "Aantal orders"],
@@ -62,7 +62,12 @@
                     });
             }
 </script>
-    <div style="text-align: center;float:left;width:100%;" >
-        <canvas id="PiecanvasMoney"></canvas>
-        <canvas id="PiecanvasWebshop"></canvas>
+<div class="row" style="overflow:hidden;">
+    <div class="col-md-6 col-xs-12">
+        <canvas height='200' id="PiecanvasMoney"></canvas>
     </div>
+    <div class="col-md-6 col-xs-12">
+        <canvas height='200' id="PiecanvasWebshop"></canvas>
+    </div>
+
+</div>

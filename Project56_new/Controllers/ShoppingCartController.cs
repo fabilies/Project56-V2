@@ -258,43 +258,49 @@ namespace Project56_new.Controllers
                                   }).ToList();
 
             // send mail
-            SmtpClient client = new SmtpClient("uxilo.com");
-           // client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("webshop@uxilo.com", "webshop123");
+            SmtpClient client = new SmtpClient();
+            client.Host = "smtp.gmail.com";
             client.Port = 587;
+            // client.UseDefaultCredentials = false;
+            client.EnableSsl = true;
+            client.Credentials = new NetworkCredential("bdhstudiowebshop@gmail.com", "Test@1234567!");
 
             MailMessage mailMessage = new MailMessage();
             mailMessage.IsBodyHtml = true;
-            mailMessage.From = new MailAddress("no-reply@webshop.com");
+            mailMessage.From = new MailAddress("bdhstudiowebshop@gmail.com");
             mailMessage.To.Add(result.Email);
             mailMessage.Subject = "Order " + orders.id;
             string fullname = result.firstname + " " + result.middlename + " " + result.lastname;
 
-            mailMessage.Body = "Beste "+ fullname + " Bedankt voor het bestellen bij onze webshop.<br>";
-            
-            mailMessage.Body += "Hier een overzicht van de artikelen die u besteld heeft : <br> ";
-            mailMessage.Body += "<table><tr><th>Artikel</th><th>Aantal</th><th>Prijs</th></tr>";
 
+            mailMessage.Body = " <div style='width:95%;'> " +
+            " <img src='https://i.imgur.com/PqqYp7k.png' style='width: 75%; height: 135px;'/>";
+            mailMessage.Body += "<br><br><h3>Beste " + fullname + " Bedankt voor het bestellen bij onze webshop.</h3>";
+            mailMessage.Body +=
+                "<h3>Hier een overzicht van de artikelen die u besteld heeft:</h3> <br><br> " +
+                " <table style='font-family: arial,sans-serif;border-collapse: collapse;width:75%; '>" +
+                " <tr> " +
+                " <th style='border: 1px solid #dddddd;text-align: left; padding:8px;font-size: 14pt;'>Afbeelding:</th>" +
+                " <th style='border: 1px solid #dddddd;text-align: left; padding:8px;font-size: 14pt;'>Omschrijving:</th>" +
+                " <th style='border: 1px solid #dddddd;text-align: left; padding:8px;font-size: 14pt;'>Aantal:</th>" +
+                " <th style='border: 1px solid #dddddd;text-align: left; padding:8px;font-size: 14pt;'>Prijs:</th>" +
+                " </tr>";
+
+            string photo_url = "http://webshop.uxilo.com/images/products/";
             foreach (var item in Listpurchitems)
             {
-                mailMessage.Body += "<tr>";
-                mailMessage.Body += "<td>" + item.Itms.photo_url + "</td>";
-                mailMessage.Body += "<td>" + item.OrdHistory.itm_description + "</td>";
-                mailMessage.Body += "<td>" + item.OrdHistory.qty_bought + "</td>";
-                mailMessage.Body += "<td>" + item.OrdHistory.priced_payed + "</td>";
-                mailMessage.Body += "</tr>";
+                mailMessage.Body +=
+                //mailMessage.Body += "<td><img style='width:300px;' src='" + photo_url + item.Itms.photo_url + "'/></td>";
+                " <tr>" +
+                " <td style='border: 1px solid #dddddd;text-align: left; padding:8px;'><img style='width:300px;' src='" + photo_url + item.Itms.photo_url + "'/></td>" +
+                " <td style='border: 1px solid #dddddd;text-align: left; padding:8px;'>" + item.OrdHistory.itm_description + "</td>" +
+                " <td style='border: 1px solid #dddddd;text-align: left; padding:8px;'>" + item.OrdHistory.qty_bought + "</td>" +
+                " <td style='border: 1px solid #dddddd;text-align: left; padding:8px;'> € " + item.OrdHistory.priced_payed + "</td></tr>";
+
             }
             mailMessage.Body += "</table>";
-            mailMessage.Body += "Bedankt voor het bestellen bij onze webshop!<br>";
-            mailMessage.Body += "Indien er nog vragen zijn kunt u contact opnemen met nummer 112";
-
-            // artikelen
-            // order gegevens
-
-            // 
-
-
-
+            mailMessage.Body += "<br><h3>Indien er nog vragen zijn kunt u contact opnemen met nummer 0182 - 987654</h3>" +
+            "</div>";
 
             client.Send(mailMessage);
             
