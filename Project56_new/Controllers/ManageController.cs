@@ -116,7 +116,7 @@ namespace Project56_new.Controllers
             var ChangeUserResult = _context.Users.Update(user);
             _context.SaveChanges();
 
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Profiel is bijgewerkt";
             return RedirectToAction(nameof(Index));
         }
 
@@ -140,7 +140,7 @@ namespace Project56_new.Controllers
             var email = user.Email;
             await _emailSender.SendEmailConfirmationAsync(email, callbackUrl);
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = "Verificatie email is gestuurd. Check u email";
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]
@@ -269,7 +269,7 @@ namespace Project56_new.Controllers
 
             await _signInManager.SignInAsync(user, isPersistent: false);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            StatusMessage = "Wachtwoord is bijgewerkt";
 
             return RedirectToAction(nameof(ChangePassword));
         }
