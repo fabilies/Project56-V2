@@ -33,7 +33,7 @@ namespace Project56_new
 //              options.UseMySql(Configuration.GetConnectionString("RemoteConnection")));
 
            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LocalConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
