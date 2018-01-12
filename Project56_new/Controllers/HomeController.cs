@@ -32,25 +32,41 @@ namespace Project56_new.Controllers
 
         // TODO : Modify it so it works out of the box. Might need to make a new
         // function as a whole out of it, but if it works here, hey atleast it works.
-        public async Task<IActionResult> Index(string search, string onsale, string maxPrice)
+        public async Task<IActionResult> Index(string search, string glass_type, string onsale, string maxPrice)
         {
             // Incoming information from the form.
             ViewData["CurrentFilter"] = search;
             ViewData["isOnSale"] = tf(onsale);
+            ViewData["category"] = glass_type;
             ViewData["maxPrice"] = maxPrice;
 
             // Retrieve the products from the database.
             var products = from p in _context.Itms select p;
+            products = products.Where(p => p.l_show.ToString() == "1");
 
             if (HttpContext.Request.Method == "POST")
             {
-                Debug.WriteLine("Stuff works");
                 //TODO : Create a querybuilder.
                 if (ViewData["CurrentFilter"] != null)
                 {
                     Debug.WriteLine("Ayy not null.");
                     products = products.Where(p => p.description.Contains(ViewData["CurrentFilter"].ToString()));
                 }
+
+                if(ViewData["category"] != null)
+                {
+                    Debug.WriteLine($"CATEGORY: {ViewData["category"]}");
+                   string cat = ViewData["category"].ToString();
+                   if(cat == "Sterkte Brillen")
+                   {
+                        products = products.Where(p => p.category_id == 1);
+                   }
+                   else if(cat == "Zonne Brillen")
+                   {
+                        products = products.Where(p => p.category_id == 0);
+                    }
+                }
+
                 //TODO : Add Sale Check
                 if (ViewData["isOnSale"].ToString() == "1")
                 {

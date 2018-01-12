@@ -29,8 +29,12 @@ namespace Project56_new
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+ //           services.AddDbContext<ApplicationDbContext>(options =>
+ //               options.UseMySql(Configuration.GetConnectionString("RemoteConnection")));
+
+           services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("LocalConnection")));
+
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -141,7 +145,7 @@ namespace Project56_new
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-           // CreateRoles(serviceProvider).Wait();
+            //CreateRoles(serviceProvider).Wait();
 
         }
     }
