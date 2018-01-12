@@ -511,6 +511,14 @@ a.right.carousel-control.mainSlider, a.left.carousel-control.mainSlider {
     background-position: 50% 48%;
 }
 
+.img-slide-3 {
+    height: 440px;
+    background-image: url(../images/slider/bdh-studio-sunglass6.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 48%;
+}
+
 .caption-slide-1 {
     top: 75px;
     text-align: left;
