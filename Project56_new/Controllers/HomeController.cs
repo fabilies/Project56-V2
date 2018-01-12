@@ -46,10 +46,8 @@ namespace Project56_new.Controllers
 
             if (HttpContext.Request.Method == "POST")
             {
-                //TODO : Create a querybuilder.
                 if (ViewData["CurrentFilter"] != null)
                 {
-                    Debug.WriteLine("Ayy not null.");
                     products = products.Where(p => p.description.Contains(ViewData["CurrentFilter"].ToString()));
                 }
 
@@ -67,27 +65,17 @@ namespace Project56_new.Controllers
                     }
                 }
 
-                //TODO : Add Sale Check
                 if (ViewData["isOnSale"].ToString() == "1")
                 {
-                    Debug.WriteLine("Ayy IS ON SALE BB");
                     products = products.Where(p => p.IsSales.ToString() == "1");
                 }
 
-
-                //TODO :  Price Check
                 if(ViewData["maxPrice"] != null && float.Parse(ViewData["maxPrice"].ToString()) != 0f)
                 {
-                    Debug.WriteLine("MAX PRICE IS SET AYY");
                     products = products.Where(p => p.price <= float.Parse(ViewData["maxPrice"].ToString()));
                 }
 
             }
-
-            // Checking if the debug works out.
-            Debug.Write("Houston, we have gotten the following info.");
-            Debug.Write($"S : {ViewData["CurrentFilter"]} Sale:{ViewData["isOnSale"]} Max : {ViewData["maxPrice"]} ");
-
 
             return View(await products.ToListAsync());
         }
