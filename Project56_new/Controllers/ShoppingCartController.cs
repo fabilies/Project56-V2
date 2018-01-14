@@ -88,6 +88,7 @@ namespace Project56_new.Controllers
             // get the logged-in user id
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var result = _context.ApplicationUser.Where(u => u.Id == userId).FirstOrDefault();
+            float totalPrice = 0;
 
             int order_id = CheckIfOrderExist();
             if (order_id != 0)
@@ -102,13 +103,26 @@ namespace Project56_new.Controllers
                             price = itms.price,
                             qty = ordlines.qty,
                             ordline_id = ordlines.id,
-                            subtotal = ordlines.qty * itms.price,
                             photo_url = itms.photo_url,
                             stock = itms.itm_quantity,
                             ord_ad = order_id,
                             itm_id = itms.id
 
                         };
+
+                if(model != null)
+                {
+                    if(model.Count() > 0)
+                    {
+                        foreach (ShoppingCartModel item in model)
+                        {
+                            item.subtotal = item.qty * item.price;
+                            totalPrice += item.subtotal;
+                        }
+                        ViewBag.totalPrice = totalPrice;
+                    }
+                }
+     
                 int count = CountItmInShoppingCart(order_id);
                 ViewBag.count = count;
                 ViewBag.model_for_view = model;
@@ -259,15 +273,15 @@ namespace Project56_new.Controllers
 
             // send mail
             SmtpClient client = new SmtpClient();
-            client.Host = "smtp.gmail.com";
+            client.Host = "uxilo.com";
             client.Port = 587;
             // client.UseDefaultCredentials = false;
-            client.EnableSsl = true;
-            client.Credentials = new NetworkCredential("bdhstudiowebshop@gmail.com", "Test@1234567!");
+            client.EnableSsl = false;
+            client.Credentials = new NetworkCredential("webshop@uxilo.com", "webshop123");
 
             MailMessage mailMessage = new MailMessage();
             mailMessage.IsBodyHtml = true;
-            mailMessage.From = new MailAddress("bdhstudiowebshop@gmail.com");
+            mailMessage.From = new MailAddress("webshop@uxilo.com");
             mailMessage.To.Add(result.Email);
             mailMessage.Subject = "Order " + orders.id;
             string fullname = result.firstname + " " + result.middlename + " " + result.lastname;
