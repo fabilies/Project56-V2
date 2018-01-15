@@ -60,7 +60,7 @@
                             @if (ViewBag.model_for_view != null)
                             {
 
-                                <td class="hidden-xs text-center"><strong><span id="result_sub_total">Totaal $@Model.Sum(itm => itm.subtotal)</span></strong></td>
+                                <td class="hidden-xs text-center"><strong><span id="result_sub_total">Totaal $@ViewBag.totalPrice</span></strong></td>
                             }
                             <td></td>
                             @{
