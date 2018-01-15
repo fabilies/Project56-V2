@@ -21,13 +21,17 @@ namespace Project56_new.Controllers
         public ActionResult Index()
         {
             var total_orders = _context.OrdMains.Count();
+            var total_ord = _context.OrdHistory;
             var amount_products = _context.Itms.Count();
-            double total_money_exclusive = _context.OrdHistory.Sum(x => (x.priced_payed * x.qty_bought) );
+            double total_money_exclusive = 0;
+            //double total_money_exclusive = _context.OrdHistory.Sum(x => (x.priced_payed * x.qty_bought) );
+    
+            foreach(OrdHistory x in _context.OrdHistory)
+            {
+                total_money_exclusive += x.priced_payed * x.qty_bought;
+            }
             int total_money_exc = (int)total_money_exclusive;
-            double total_money_inclusive = ((total_money_exc / 100 * 21)  + total_money_exc);
-
-            
-
+            double total_money_inclusive = ((total_money_exc / 100 * 21) + total_money_exc);
 
             ViewBag.total_orders = total_orders;
             ViewBag.amount_products = amount_products;
