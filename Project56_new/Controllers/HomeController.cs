@@ -9,6 +9,7 @@ using Project56_new.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
 using System.Text;
+using System.Net;
 
 namespace Project56_new.Controllers
 {
@@ -30,8 +31,6 @@ namespace Project56_new.Controllers
                 return "-1";
         }
 
-        // TODO : Modify it so it works out of the box. Might need to make a new
-        // function as a whole out of it, but if it works here, hey atleast it works.
         public async Task<IActionResult> Index(string search, string glass_type, string onsale, string maxPrice)
         {
             // Incoming information from the form.
@@ -105,6 +104,7 @@ namespace Project56_new.Controllers
                     // TODO Fix HTML weergave
                     sentMail.Body = " <div style='width:95%;'> " +
                                     " <img src='https://i.imgur.com/PqqYp7k.png' style='width: 75%; height: 135px;'/>" +
+                                    "<br><h2> Wij hebben het volgende van uw ontvangen en onze klantenservice zal spoedig contact met u opnemen</h2><br>" +
                                     " <table style='font-family: arial,sans-serif;border-collapse: collapse;width:75%; '>" +
                                     " <tr> " +
                                     " <th style='border: 1px solid #dddddd;text-align: left; padding:8px;font-size: 14pt;'>Naam:</th>" +
@@ -117,22 +117,23 @@ namespace Project56_new.Controllers
                                     " <td style='border: 1px solid #dddddd;text-align: left; padding:8px;'>" + c.email + "</td>" +
                                     " <td style='border: 1px solid #dddddd;text-align: left; padding:8px;'>" + c.onderwerp + "</td>" +
                                     " <td style='border: 1px solid #dddddd;text-align: left; padding:8px;'>" + c.bericht + "</td>" +
-                                    "</table>" +
+                                    "</table><br>" +
+                                    "Het is ook mogelijk om ons te bereiken via ons telefoonnummer : 0182 - 999999 op Maandag t/m Vrijdag tussen 9:00 en 17:00."+
                                     "</div>";
                                     
-                    sentMail.From = new MailAddress(c.email);
-                    sentMail.To.Add("bdhstudiowebshop@gmail.com");
+                    sentMail.From = new MailAddress("webshop@uxilo.com");
+                    sentMail.To.Add(c.email);
                     sentMail.Subject = c.onderwerp;
 
-                    SmtpClient smtp = new SmtpClient();
+                    SmtpClient client = new SmtpClient();
+                    client.Host = "uxilo.com";
+                    client.Port = 587;
+                    // client.UseDefaultCredentials = false;
+                    client.EnableSsl = false;
+                    client.Credentials = new NetworkCredential("webshop@uxilo.com", "webshop123");
 
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.Port = 587;
-                    smtp.Credentials = new System.Net.NetworkCredential
-                    ("bdhstudiowebshop@gmail.com", "Test@1234567!");
-
-                    smtp.EnableSsl = true;
-                    smtp.Send(sentMail);
+ 
+                    client.Send(sentMail);
 
                     ModelState.Clear();
                     ViewBag.Message = "Bedankt voor uw bericht, wij nemen zo spoedig mogelijk contact met u op! ";
